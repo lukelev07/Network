@@ -13,7 +13,7 @@ public class Board {
 	/**
 	 *  numNeighbors() determines if the given position has a safe amount of neighbors
 	 *  to place a new chip in. The README states no chip may have more than one adjacent 
-	 *  similarly colored chip. 
+	 *  similarly colored chip. y
 	 *
 	 *  @param color is the color to be checked with
 	 *  @param x is the x coordinate of the spot we are checking
