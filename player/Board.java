@@ -10,17 +10,35 @@ public class Board {
 
 
 	protected Chip[][] board;
-	
+	protected int size;
 	/**
 	* zero parameter constructor that initializes an 8x8 2d array to hold chips
 	* The board is initially empty
 	**/
+	public Board(int size) {
+		this.size = 8;
+		board = new Chip[size][size];
+	}
 	public Board() {
-		board = new Chip[8][8];
+		this(8);
 	}
 
 	private Chip newChip(int side, int x, int y) {
 		return new Chip(side, x, y);
+	}
+
+	private static boolean isValidMove(int color, int x, int y) {
+		try {
+			if (color == Chip.BLACK && x > 0 && x < this.size) {
+				return true;
+			}
+			if (color == Chip.WHTIE && y > 0 && y < this.size) {
+				return true;
+			}
+		}
+		catch (ArrayIndexOutOfBoundsException e1) {
+			return false;
+		}
 	}
 
 	/**
@@ -28,15 +46,36 @@ public class Board {
 	* if the chip does not exist and if the array is out of bounds, it returns null
 	**/
 	public Chip getChip(int x, int y) throws ArrayIndexOutOfBoundsException {
-			return board[x][y];
+		return board[x][y];
 	}
 
 
 	public boolean placeChip(int color, int x, int y) throws ArrayIndexOutOfBoundsException {
-			if (this.getChip(x,y) == null) {
-				board[x][y] = newChip(color, x, y);
-			}
+		if (this.getChip(x,y) == null && isValidMove(color, x, y)) {
+			board[x][y] = newChip(color, x, y);
+			return true;
+		}
+		return false;
 	}
+
+	public boolean removeChip(int x, int y) throws ArrayIndexOutOfBoundsException {
+		if (this.getChip(x,y) != null && isValidMove(color, x, y)) {
+			board[x][y] = null;
+			return true;
+		}
+		return false;
+	}
+
+	public boolean moveChip(int x1, int y1, int x2, int y2) throws ArrayIndexOutOfBoundsException {
+		if (this.getChip(x1, y1) != null && this.getChip(x2, y2) == null && isValidMove(color, x, y)) {
+			int color = this.getChip(x1, y1).getColor();
+			this.removeChip(x1, y1);
+			this.placeChip(color, x2, y2);
+			return true;
+		}
+		return false;
+	}
+
 
 
 	/**
@@ -62,6 +101,19 @@ public class Board {
 
 	public Chip[] getNeighbors(int x, int y) {
 		//implementation here 
+		Chip[] neighbors = new Chip[9];
+		int index = 0;
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				try {
+					neighbors[index] = this.getChip(x+i, y+j);
+				}
+				catch (ArrayIndexOutOfBoundsException e2) {
+					neighbors[index] = null;
+				}
+				index ++;
+			}
+		}
 	}
 
 }
