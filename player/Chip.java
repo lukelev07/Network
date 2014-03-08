@@ -11,6 +11,13 @@ public class Chip {
 	public boolean isChecked;
 	protected Set edges;
 
+
+	/**
+	* Chip constructor makes a Chip object
+	* @param color represents white or black
+	* @param x represents x coord of the chip being placed
+	* @param y represents y coord of the chip being placed
+	**/
 	public Chip(int color, int x, int y) {
 		this.color = color;
 		this.x = x;
@@ -19,18 +26,33 @@ public class Chip {
 		this.edges = new Set();
 	}
 
+
+
+	/**
+	* getX() returns the x coordinate of the Chip
+	**/
 	public int getX() {
 		return x;
 	}
 
+	/**
+	* getY() returns the y coordinate of the Chip
+	**/
 	public int getY() {
 		return y;
 	}
 
+
+	/**
+	* getColor() returns the color of the Chip
+	**/
 	public int getColor() {
 		return color;
 	}
 
+	/**
+	* toString() returns the string representation of the Chip
+	**/
 	public String toString() {
 		return "{" + color +" at ("+x+", "+y+")}";
 	}
