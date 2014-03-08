@@ -70,6 +70,26 @@ public abstract class List {
    */
   public abstract ListNode back();
 
+
+  public void remove(Object i) {
+    ListNode curr = this.front();
+    while (curr.isValidNode()) {
+      try {
+        if (curr.item() == i) {
+          curr.remove();
+          return;
+        }
+        curr = curr.next();
+      }
+      catch (InvalidNodeException e) {
+        return;
+      }
+    }
+
+
+
+  }
+
   /**
    *  toString() returns a String representation of this List.
    *

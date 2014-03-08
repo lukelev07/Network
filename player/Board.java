@@ -61,7 +61,6 @@ public class Board {
 			if (!(color == Chip.BLACK && x > 0 && x < this.size-1) && !(color == Chip.WHITE && y > 0 && y < this.size-1)) {
 				return false;
 			}
-			System.out.println("hello");
 			if (this.numNeighbors(color,x,y) > 1) {
 				return false;
 			}
@@ -131,8 +130,30 @@ public class Board {
 	**/
 	public boolean removeChip(int x, int y) {
 		try {
-			if (this.getChip(x,y) != null) {
+			Chip removed = this.getChip(x,y);
+			if (removed != null) {
+				this.chips.remove(removed);
 				board[x][y] = null;
+
+				Chip temp;
+
+				for (int x_dir = -1; x_dir<2; x_dir++) {
+					for (int y_dir = -1; y_dir<2; y_dir++) {
+						System.out.println(""+x_dir+y_dir);
+						if (x_dir != 0 || y_dir != 0) { 
+							temp = removed.findChipInDirection(x_dir,y_dir);
+
+							System.out.println("hello");
+							if (temp != null && temp.getColor() == removed.getColor()) {
+								temp.getEdges().remove(removed);
+								temp.updateEdges();
+								System.out.println("what");
+							}
+					}
+					}
+
+				}
+
 				return true;
 			}
 			return false;
@@ -291,6 +312,14 @@ public class Board {
 		System.out.println("" + test1.getChip(3,6).getEdges());
 		test1.placeChip(Chip.BLACK, 2,0);
 		System.out.println(""+test1);
+
+
+
+		test1.removeChip(3,6);
+		System.out.println(""+test1);
+		System.out.println(""+test1.chips);
+		System.out.println("" + test1.getChip(3,2).getEdges());
+
 
 
 
