@@ -55,12 +55,26 @@ public class Board {
 	 **/
 	private boolean isValidMove(int color, int x, int y) {
 		try {
-			if (color == Chip.BLACK && x > 0 && x < this.size-1) {
+			if (!(color == Chip.BLACK && x > 0 && x < this.size-1) && !(color == Chip.WHITE && y > 0 && y < this.size-1)) {
+				return false;
+			}
+			System.out.println("hello");
+			if (this.numNeighbors(color,x,y) > 1) {
+				return false;
+			}
+
+			if (this.numNeighbors(color,x,y) == 0) {
 				return true;
 			}
-			if (color == Chip.WHITE && y > 0 && y < this.size-1) {
-				return true;
+
+			Chip[] neighbors = this.getNeighbors(x,y);
+			for (int i = 0; i < neighbors.length; i++) {
+				if (neighbors[i].getColor() == color) {
+					return this.numNeighbors(neighbors[i].getColor(), neighbors[i].getX(), neighbors[i].getY()) == 0;
+				}
 			}
+
+
 			return false;
 		}
 		catch (ArrayIndexOutOfBoundsException e1) {
@@ -260,6 +274,8 @@ public class Board {
 
 		test1.placeChip(Chip.BLACK, 3,6);
 		System.out.println("" + test1.getChip(3,6).getEdges());
+		test1.placeChip(Chip.BLACK, 2,0);
+		System.out.println(""+test1);
 
 
 
