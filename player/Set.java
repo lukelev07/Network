@@ -170,6 +170,12 @@ public class Set {
       }
       
     }
+
+
+    public void remove(Object i) {
+      this.set.remove(i);
+    }
+
   // public void intersect(Set s) {
   //   ListNode this_curr = this.set.front();
   //   ListNode s_curr = s.set.front();
