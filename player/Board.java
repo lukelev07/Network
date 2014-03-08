@@ -30,4 +30,9 @@ public class Board {
 		}
 		return sameNeighbors;
 	}
+
+	public Chip[] getNeighbors(int x, int y) {
+		//implementation here 
+	}
+
 }
