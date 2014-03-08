@@ -1,6 +1,6 @@
 
 
-public class Chip {
+public class Chip implements Comparable {
 	// declarations for the side. Declared final for security. 
 	public static final int BLACK = 0;
 	public static final int WHITE = 1;
@@ -49,6 +49,25 @@ public class Chip {
 	public int getColor() {
 		return color;
 	}
+
+
+	public int compareTo(Object other) {
+		Chip others = (Chip) other;
+		if (this.getY() < others.getY()) {
+			return -1; 
+		}
+		if (this.getY() > others.getY()) {
+			return 1;
+		}
+		if (this.getX() < others.getX()) {
+			return -1;
+		}
+		if (this.getX() > others.getX()) {
+			return 1;
+		}
+		return 0;
+	}
+
 
 	/**
 	* toString() returns the string representation of the Chip

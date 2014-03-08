@@ -2,4 +2,5 @@ cd player/
 javac list/*.java
 javac Set.java
 javac ./*java
+java Board
 cd ..

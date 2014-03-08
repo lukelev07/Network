@@ -55,10 +55,10 @@ public class Board {
 	 **/
 	private boolean isValidMove(int color, int x, int y) {
 		try {
-			if (color == Chip.BLACK && x > 0 && x < this.size) {
+			if (color == Chip.BLACK && x > 0 && x < this.size-1) {
 				return true;
 			}
-			if (color == Chip.WHITE && y > 0 && y < this.size) {
+			if (color == Chip.WHITE && y > 0 && y < this.size-1) {
 				return true;
 			}
 			return false;
@@ -89,12 +89,17 @@ public class Board {
 	 * @param x is the x coordinate of the chip being created
 	 * @param y is the y coordinate of the chip being created
 	**/
-	public boolean placeChip(int color, int x, int y) throws ArrayIndexOutOfBoundsException {
-		if (this.getChip(x,y) == null && isValidMove(this.getChip(x,y).getColor(), x, y)) {
-			board[x][y] = newChip(color, x, y);
-			return true;
+	public boolean placeChip(int color, int x, int y){
+		try {	
+			if (this.getChip(x,y) == null && isValidMove(color, x, y)) {
+				board[x][y] = newChip(color, x, y);
+				chips.insert(this.getChip(x,y));
+				return true;
+			}
+			return false;
+		} catch (ArrayIndexOutOfBoundsException e1) {
+			return false;
 		}
-		return false;
 	}
 
 
@@ -106,12 +111,16 @@ public class Board {
 	 * @param x is the x coordinate of the chip being removed
 	 * @param y is the y coordinate of the chip being removed
 	**/
-	public boolean removeChip(int x, int y) throws ArrayIndexOutOfBoundsException {
-		if (this.getChip(x,y) != null) {
-			board[x][y] = null;
-			return true;
+	public boolean removeChip(int x, int y) {
+		try {
+			if (this.getChip(x,y) != null) {
+				board[x][y] = null;
+				return true;
+			}
+			return false;
+		} catch (ArrayIndexOutOfBoundsException e1) {
+			return false;
 		}
-		return false;
 	}
 
 
@@ -124,14 +133,18 @@ public class Board {
 	 * @param x2 is the x coordinate of the chip being placed
 	 * @param y2 is the y coordinate of the chip being placed
 	**/
-	public boolean moveChip(int x1, int y1, int x2, int y2) throws ArrayIndexOutOfBoundsException {
-		if (this.getChip(x1, y1) != null && this.getChip(x2, y2) == null && isValidMove(this.getChip(x1,y1).getColor(), x2, y2)) {
-			int color = this.getChip(x1, y1).getColor();
-			this.removeChip(x1, y1);
-			this.placeChip(color, x2, y2);
-			return true;
+	public boolean moveChip(int x1, int y1, int x2, int y2) {
+		try {
+			if (this.getChip(x1, y1) != null && this.getChip(x2, y2) == null && isValidMove(this.getChip(x1,y1).getColor(), x2, y2)) {
+				int color = this.getChip(x1, y1).getColor();
+				this.removeChip(x1, y1);
+				this.placeChip(color, x2, y2);
+				return true;
+			}
+			return false;
+		} catch (ArrayIndexOutOfBoundsException e1) {
+			return false;
 		}
-		return false;
 	}
 
 
@@ -197,8 +210,61 @@ public class Board {
 		return temp;
 	}
 
+	public String toTestString() {
+		String temp = "";
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				temp += "|"+this.getChip(x,y);
+			}
+			temp += "|\\n";
+		}
+		return temp;
+	}
+
 	public static void main(String[] args) {
-		//
+		
+
+
+
+		//initiates a board with several pieces placed and then prints it
+		Board test1 = new Board();
+		int x = 1;
+		while (test1.placeChip(Chip.BLACK, x, 0)) {
+			x += 2;
+		}
+
+		System.out.println("TEST1: should be \n"+data.BOARD_TEST1);
+		if (test1.toString().equals(data.BOARD_TEST1)) {
+			System.out.println("TEST1 PASSED HOORAY");
+		}
+		else {
+			System.out.println("TEST1 did not pass :(");
+		}
+
+
+		//TEST2
+		boolean bool = test1.placeChip(Chip.WHITE, 1, 0);
+		System.out.println("TEST2: bool should be false: ");
+		if (bool == false) {
+			System.out.println("TEST2 PASSED HOORAY");
+		}
+		else {
+			System.out.println("TEST2 did not pass :(");
+		}
+
+		System.out.println(""+test1.chips);
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 
 }
