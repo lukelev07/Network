@@ -231,6 +231,15 @@ public class Board {
 		return neighbors;
 	}
 
+	/**
+	* returns either an ADD move or a STEP move, based upon the number of pieces on the board 
+	**/
+	public int moveType() {
+		if (chips.cardinality() < 20) {
+			return Move.ADD;
+		} 
+		return Move.STEP;
+	}
 
 
 
