@@ -8,17 +8,21 @@ public class Board {
 	 *
 	 **/
 
-
+	protected Set chips;
 	protected Chip[][] board;
 	protected int size;
+
+	public Board(int size) {
+		this.size = 8;
+		board = new Chip[size][size];
+		chips = new Set();
+	}
+
+
 	/**
 	* zero parameter constructor that initializes an 8x8 2d array to hold chips
 	* The board is initially empty
 	**/
-	public Board(int size) {
-		this.size = 8;
-		board = new Chip[size][size];
-	}
 	public Board() {
 		this(8);
 	}
@@ -27,14 +31,15 @@ public class Board {
 		return new Chip(side, x, y);
 	}
 
-	private static boolean isValidMove(int color, int x, int y) {
+	private boolean isValidMove(int color, int x, int y) {
 		try {
 			if (color == Chip.BLACK && x > 0 && x < this.size) {
 				return true;
 			}
-			if (color == Chip.WHTIE && y > 0 && y < this.size) {
+			if (color == Chip.WHITE && y > 0 && y < this.size) {
 				return true;
 			}
+			return false;
 		}
 		catch (ArrayIndexOutOfBoundsException e1) {
 			return false;
@@ -51,7 +56,7 @@ public class Board {
 
 
 	public boolean placeChip(int color, int x, int y) throws ArrayIndexOutOfBoundsException {
-		if (this.getChip(x,y) == null && isValidMove(color, x, y)) {
+		if (this.getChip(x,y) == null && isValidMove(this.getChip(x,y).getColor(), x, y)) {
 			board[x][y] = newChip(color, x, y);
 			return true;
 		}
@@ -59,7 +64,7 @@ public class Board {
 	}
 
 	public boolean removeChip(int x, int y) throws ArrayIndexOutOfBoundsException {
-		if (this.getChip(x,y) != null && isValidMove(color, x, y)) {
+		if (this.getChip(x,y) != null) {
 			board[x][y] = null;
 			return true;
 		}
@@ -67,7 +72,7 @@ public class Board {
 	}
 
 	public boolean moveChip(int x1, int y1, int x2, int y2) throws ArrayIndexOutOfBoundsException {
-		if (this.getChip(x1, y1) != null && this.getChip(x2, y2) == null && isValidMove(color, x, y)) {
+		if (this.getChip(x1, y1) != null && this.getChip(x2, y2) == null && isValidMove(this.getChip(x1,y1).getColor(), x2, y2)) {
 			int color = this.getChip(x1, y1).getColor();
 			this.removeChip(x1, y1);
 			this.placeChip(color, x2, y2);
@@ -114,6 +119,22 @@ public class Board {
 				index ++;
 			}
 		}
+		return neighbors;
+	}
+
+	public String toString() {
+		String temp = "";
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				temp += "|"+this.getChip(x,y);
+			}
+			temp += "|\n";
+		}
+		return temp;
+	}
+
+	public static void main(String[] args) {
+		//
 	}
 
 }

@@ -1,2 +1,5 @@
-javac player/*java
-javac player/list/*java
+cd player/
+javac list/*.java
+javac Set.java
+javac ./*java
+cd ..
