@@ -42,7 +42,7 @@ public class Board {
 	 * @param y is the y coordinate of the chip being created
 	 **/
 	private Chip newChip(int color, int x, int y) {
-		return new Chip(color, x, y);
+		return new Chip(color, x, y, this);
 	}
 
 
@@ -94,6 +94,7 @@ public class Board {
 			if (this.getChip(x,y) == null && isValidMove(color, x, y)) {
 				board[x][y] = newChip(color, x, y);
 				chips.insert(this.getChip(x,y));
+				this.getChip(x,y).updateEdges();
 				return true;
 			}
 			return false;
@@ -201,8 +202,8 @@ public class Board {
 	**/
 	public String toString() {
 		String temp = "";
-		for (int x = 0; x < 8; x++) {
-			for (int y = 0; y < 8; y++) {
+		for (int y = 0; y < 8; y++) {
+			for (int x = 0; x < 8; x++) {
 				temp += "|"+this.getChip(x,y);
 			}
 			temp += "|\n";
@@ -233,7 +234,7 @@ public class Board {
 			x += 2;
 		}
 
-		System.out.println("TEST1: should be \n"+data.BOARD_TEST1);
+		System.out.println("TEST1: \n"+test1);
 		if (test1.toString().equals(data.BOARD_TEST1)) {
 			System.out.println("TEST1 PASSED HOORAY");
 		}
@@ -253,6 +254,12 @@ public class Board {
 		}
 
 		System.out.println(""+test1.chips);
+		System.out.println("" + test1.getChip(3,0).getEdges());
+		test1.placeChip(Chip.BLACK, 3,2);
+		System.out.println("" + test1.getChip(3,2).getEdges());
+
+		test1.placeChip(Chip.BLACK, 3,6);
+		System.out.println("" + test1.getChip(3,6).getEdges());
 
 
 

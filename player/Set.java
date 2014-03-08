@@ -66,6 +66,21 @@ public class Set {
       set.insertBack(c);
   }
 
+  public boolean contains(Comparable c) {
+    ListNode curr = set.front();
+    while (curr.isValidNode()) {
+      try {
+        if (curr.item() == c) {
+          return true;
+        }
+        curr = curr.next();
+      }
+      catch (InvalidNodeException e) {
+        return false;
+      }
+    }
+    return false;
+  }
   /**
    *  union() modifies this Set so that it contains all the elements it
    *  started with, plus all the elements of s.  The Set s is NOT modified.

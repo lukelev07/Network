@@ -10,6 +10,7 @@ public class Chip implements Comparable {
 	// when checking networks, cant use same chip twice. This maintains rule
 	public boolean isChecked;
 	protected Set edges;
+	protected Board board;
 
 
 	/**
@@ -18,12 +19,13 @@ public class Chip implements Comparable {
 	* @param x represents x coord of the chip being placed
 	* @param y represents y coord of the chip being placed
 	**/
-	public Chip(int color, int x, int y) {
+	public Chip(int color, int x, int y, Board board) {
 		this.color = color;
 		this.x = x;
 		this.y = y;
 		isChecked = false;
 		this.edges = new Set();
+		this.board = board;
 	}
 
 
@@ -50,6 +52,49 @@ public class Chip implements Comparable {
 		return color;
 	}
 
+	public void updateEdges() {
+		Chip temp;
+		for (int x = -1; x<2; x++) {
+			for (int y = -1; y<2; y++) {
+				temp = findChipInDirection(x,y);
+				if (temp != null && temp.getColor() == this.getColor() && !(this.getEdges().contains(temp))) {
+					this.addEdge(temp);
+					temp.updateEdges();
+				}
+			}
+		}
+	}
+
+	public Chip findChipInDirection(int x, int y) {
+		int x_curr = this.getX();
+		int y_curr = this.getY();
+		while (true) {
+			try {
+				x_curr += x;
+				y_curr += y;
+				Chip temp = this.getBoard().getChip(x_curr,y_curr);
+				if (temp != null) {
+					if (temp.getColor() == this.getColor()) {
+						return temp;
+					}
+					return null;
+				}
+			}
+			catch (ArrayIndexOutOfBoundsException e1) {
+				return null;
+			}
+		}
+
+	}
+	public Board getBoard() {
+		return board;
+	}
+	public Set getEdges() {
+		return edges;
+	}
+	public void addEdge(Chip chip) {
+		this.edges.insert(chip);
+	}
 
 	public int compareTo(Object other) {
 		Chip others = (Chip) other;
