@@ -52,6 +52,11 @@ public class Chip implements Comparable {
 		return color;
 	}
 
+
+	/**
+	* called on a chip, and updates the edges.
+	* it then recursively calls update on any edges added to this chip
+	**/
 	public void updateEdges() {
 		Chip temp;
 		for (int x = -1; x<2; x++) {
@@ -64,7 +69,10 @@ public class Chip implements Comparable {
 			}
 		}
 	}
-
+	/**
+	* finds the closest chip in a given direction
+	* returns null if there is none
+	**/
 	public Chip findChipInDirection(int x, int y) {
 		int x_curr = this.getX();
 		int y_curr = this.getY();
@@ -86,16 +94,36 @@ public class Chip implements Comparable {
 		}
 
 	}
+
+	/**
+	* returns board
+	**/
 	public Board getBoard() {
 		return board;
 	}
+
+
+	/**
+	* returns edges
+	**/
 	public Set getEdges() {
 		return edges;
 	}
+
+
+	/**
+	* adds one edge to a chips set
+	**/
 	public void addEdge(Chip chip) {
 		this.edges.insert(chip);
 	}
 
+
+
+	/**
+	* method that implements Comparable
+	* returns +1, -1 or 0
+	**/
 	public int compareTo(Object other) {
 		Chip others = (Chip) other;
 		if (this.getY() < others.getY()) {
