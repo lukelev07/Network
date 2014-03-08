@@ -11,6 +11,9 @@ public class Board {
 	protected Set chips;
 	protected Chip[][] board;
 	protected int size;
+	protected static final int ADD = 1;
+	protected static final int STEP = 2;
+
 
 
 	/**
@@ -215,9 +218,9 @@ public class Board {
 	**/
 	public int moveType() {
 		if (chips.cardinality() < 20) {
-			return Move.ADD;
+			return ADD;
 		} 
-		return Move.STEP;
+		return STEP;
 	}
 
 
