@@ -1,12 +1,18 @@
 /* MachinePlayer.java */
 
 package player;
+import java.util.*;
+
 
 /**
  *  An implementation of an automatic Network player.  Keeps track of moves
  *  made by both players.  Can select a move for itself.
  */
 public class MachinePlayer extends Player {
+
+  Board board;
+  int color;
+  int searchDepth;
 
   // Creates a machine player with the given color.  Color is either 0 (black)
   // or 1 (white).  (White has the first move.)
@@ -24,7 +30,9 @@ public class MachinePlayer extends Player {
   // Returns a new move by "this" player.  Internally records the move (updates
   // the internal game board) as a move by "this" player.
   public Move chooseMove() {
-    return new Move();
+    Move temp = randomForTesting();
+    board.execMove(temp, color);
+    return temp;
   } 
 
   // If the Move m is legal, records the move as a move by the opponent
@@ -42,6 +50,24 @@ public class MachinePlayer extends Player {
   // player to solve.
   public boolean forceMove(Move m) {
     return false;
+  }
+
+
+
+  /**
+  * Returns a random move if it is valid
+  **/
+  public Move randomForTesting() {
+    int x;
+    int y;
+    Random rand = new Random();
+    x = rand.nextInt(8);
+    y = rand.nextInt(8);
+    while (!this.board.isValidMove(this.color,x,y)) {
+      x = rand.nextInt(8);
+      y = rand.nextInt(8);
+    }
+    return new Move(x,y);
   }
 
 }

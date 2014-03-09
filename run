@@ -1,6 +1,6 @@
-cd player/
+cd player
 javac list/*.java
-javac Set.java
-javac ./*java
-java Board
 cd ..
+javac player/Board.java
+#javac player/*.java
+#java Board

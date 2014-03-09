@@ -1,5 +1,5 @@
 
-
+import player.*;
 public class Board {
 	/** 
 	 *  declare fields here
@@ -136,15 +136,14 @@ public class Board {
 
 				for (int x_dir = -1; x_dir<2; x_dir++) {
 					for (int y_dir = -1; y_dir<2; y_dir++) {
-						System.out.println(""+x_dir+y_dir);
+
 						if (x_dir != 0 || y_dir != 0) { 
 							temp = removed.findChipInDirection(x_dir,y_dir);
 
-							System.out.println("hello");
 							if (temp != null && temp.getColor() == removed.getColor()) {
 								temp.getEdges().remove(removed);
 								temp.updateEdges();
-								System.out.println("what");
+
 							}
 					}
 					}
@@ -242,7 +241,11 @@ public class Board {
 	}
 
 
-
+	public void execMove(Move m, int color) {
+		if (m.moveKind == 1) {
+			this.placeChip(color, m.x1,m.x2);
+		}
+	}
 
 	/**
 	* returns a String representation of the board

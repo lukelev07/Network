@@ -1,0 +1,14 @@
+Script started on Sat 08 Mar 2014 04:43:56 PM PST
+]0;donwshin@donwshin: ~/Networkdonwshin@donwshin:~/Network$ ls
+data.java  GRADER  [0m[01;34mnetwork[0m  [01;34mNetwork[0m  [01;34mpics[0m  [01;34mplayer[0m  README  readme.pdf  [01;32mrun[0m  todo  typescript
+]0;donwshin@donwshin: ~/Networkdonwshin@donwshin:~/Network$ cd player
+]0;donwshin@donwshin: ~/Network/playerdonwshin@donwshin:~/Network/player$ ls
+Board.java  Chip.java  [0m[01;34mlist[0m  MachinePlayer.java  Move.class  Move.java  Player.java  Set.java
+]0;donwshin@donwshin: ~/Network/playerdonwshin@donwshin:~/Network/player$ cd list
+]0;donwshin@donwshin: ~/Network/player/listdonwshin@donwshin:~/Network/player/list$ ls
+DList.class      DListNode.java              List.class      ListNode.java  SListNode.class
+DList.java       InvalidNodeException.class  List.java       SList.class    SListNode.java
+DListNode.class  InvalidNodeException.java   ListNode.class  SList.java
+]0;donwshin@donwshin: ~/Network/player/listdonwshin@donwshin:~/Network/player/list$ exit
+
+Script done on Sat 08 Mar 2014 04:44:09 PM PST

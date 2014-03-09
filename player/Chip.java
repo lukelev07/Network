@@ -1,5 +1,5 @@
 
-
+package player;
 public class Chip implements Comparable {
 	// declarations for the side. Declared final for security. 
 	public static final int BLACK = 0;
@@ -10,7 +10,7 @@ public class Chip implements Comparable {
 	// when checking networks, cant use same chip twice. This maintains rule
 	public boolean isChecked;
 	protected Set edges;
-	protected Board board;
+	public Board board;
 
 
 	/**
