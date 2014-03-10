@@ -53,21 +53,4 @@ public class MachinePlayer extends Player {
   }
 
 
-
-  /**
-  * Returns a random move if it is valid
-  **/
-  public Move randomForTesting() {
-    int x;
-    int y;
-    Random rand = new Random();
-    x = rand.nextInt(8);
-    y = rand.nextInt(8);
-    while (!this.board.isValidMove(this.color,x,y)) {
-      x = rand.nextInt(8);
-      y = rand.nextInt(8);
-    }
-    return new Move(x,y);
-  }
-
 }
