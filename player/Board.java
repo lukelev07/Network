@@ -292,12 +292,16 @@ public class Board {
 		return false;
 	}
 
-	public boolean hasNetwork(int color, int startval) {
+	public boolean hasNetwork(int color, int x, int y, int startval) {
 		if (startval == 0 && includes both goals) { // add goal checker method 
 			return true; //
 		}
 		if (color == BLACK) {
-			//do black stuff 
+			//do black stuff
+			chip.setChecked();
+			for(connections in chip) {
+
+			} 
 		}
 		if (color == WHITE) {
 			//do white stuff 
@@ -306,6 +310,15 @@ public class Board {
 			return false; // reached a dead-end, not network found. 
 		}
 	}
+
+
+
+	/*start param at 6 
+	if param == 0 , return true: 
+	//for each chip in spot (nope)
+	    check for connections to that chip (set to visited first) 
+	        for each connection
+	            call recursively (param - 1) if not checked already */
 
 	/**
 	* returns a String representation of the board
