@@ -292,6 +292,21 @@ public class Board {
 		return false;
 	}
 
+	public boolean hasNetwork(int color, int startval) {
+		if (startval == 0 && includes both goals) { // add goal checker method 
+			return true; //
+		}
+		if (color == BLACK) {
+			//do black stuff 
+		}
+		if (color == WHITE) {
+			//do white stuff 
+		}
+		else {
+			return false; // reached a dead-end, not network found. 
+		}
+	}
+
 	/**
 	* returns a String representation of the board
 	**/
