@@ -4,3 +4,13 @@
 5. edges in graph
 6. check for win
 7. strategy
+
+
+
+start param at 6 
+
+if param == 0 , return true: 
+for each chip in spot 
+    check for connections to that chip (set to visited first) 
+        for each connection
+            call recursively (param - 1)

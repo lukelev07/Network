@@ -52,6 +52,10 @@ public class Chip implements Comparable {
 		return color;
 	}
 
+	public void setCheck() {
+		isChecked = true;
+	}
+
 
 	/**
 	* called on a chip, and updates the edges.
