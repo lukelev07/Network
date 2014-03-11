@@ -250,6 +250,36 @@ public class Board {
 		}
 	}
 
+/*	public BestMove chooseMove(int side, int alpha, int beta) {
+		Best myBest = new BestMove();
+		Best reply; 
+
+		if (current grid full or has a win) {
+			return a BestMove with the grids score, no move;
+		}
+		if (side == computer) {
+			myBest.score = alpha; 
+		} else {
+			myBest.score = beta; 
+		}
+		for (each legal move m) {
+			perform move m;
+			reply = chooseMove(! side , alpha, beta);
+			undo move m;
+			if side((side == computer) && (reply.score >= myBest.score)) {
+				myBest.move = m;
+				myBest.score = reply.score;
+				alpha = reply.score;
+			} else if ((side == human) && (reply.score <= myBest.score)) {
+				myBest.move = m; 
+				myBest.score = reply.score; 
+				beta = reply.score;
+			}
+			if( alpha >= beta) { return myBest; }
+		}
+		return myBest;
+	} */
+
 	/**
 	* returns a String representation of the board
 	**/
