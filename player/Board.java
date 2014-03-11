@@ -281,6 +281,18 @@ public class Board {
 	} */
 
 	/**
+	* returns whether or not a win is possible given an array of connections from goal to goal.  
+	**/
+	public boolean hasWin() {
+		for(int i = 0; i < connections.length() -1; i++) {
+			if (connections[i].length() >= 6) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	* returns a String representation of the board
 	**/
 	public String toString() {
