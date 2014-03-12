@@ -246,7 +246,13 @@ public class Board {
 
 	public void execMove(Move m, int color) {
 		if (m.moveKind == 1) {
-			this.placeChip(color, m.x1,m.x2);
+			this.placeChip(color, m.x1, m.x2);
+		}
+	}
+
+	public void undoMove(Move m, int color) {
+		if (m.movekind == 1) {
+			this.removeChip(color, m.x1, m.x2);
 		}
 	}
 

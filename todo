@@ -8,9 +8,15 @@
 
 
 start param at 6 
-
 if param == 0 , return true: 
-for each chip in spot 
+for each chip in spot //
     check for connections to that chip (set to visited first) 
         for each connection
-            call recursively (param - 1)
+            call recursively (param - 1) if not checked already 
+
+
+TO DO LUKE REMINDER !
+
+finish for loop in ab search
+think of ways to improve blocking strat 
+find worst chip on board for step moves (no connection, etc)

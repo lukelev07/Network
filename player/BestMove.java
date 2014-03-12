@@ -3,6 +3,11 @@
 
 public class BestMove extends Move {
 
+    int score;
+
+    public int getScore() {
+        return score;
+    }
 
     // no new fields to declare. Inherits from Move.
 
