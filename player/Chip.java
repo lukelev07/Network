@@ -1,4 +1,4 @@
-
+ 
 package player;
 public class Chip implements Comparable {
 	// declarations for the side. Declared final for security. 

@@ -243,13 +243,25 @@ public class Board {
 		return STEP;
 	}
 
-
+	/**
+	* execMove() takes in a move and executes it as a step or add move
+	* @param m is the move being executed
+	* @param color is an integer representing whose turn it is
+	**/
 	public void execMove(Move m, int color) {
 		if (m.moveKind == 1) {
 			this.placeChip(color, m.x1, m.x2);
 		}
 	}
 
+
+
+	/**
+	* undoMove() takes in a move and undoes it.
+	* used for testing possible moves 
+	* @param m is the move being undone
+	* @param color is an integer representing whose turn it is
+	**/
 	public void undoMove(Move m, int color) {
 		if (m.movekind == 1) {
 			this.removeChip(color, m.x1, m.x2);
@@ -298,6 +310,14 @@ public class Board {
 		return false;
 	}
 
+
+
+
+	/**
+	* hasNetwork() is a method called by a board that returns true if a network exists
+	* @param color is an integer that states which player is going
+	* @param startval
+	**/
 	public boolean hasNetwork(int color, int x, int y, int startval) {
 		if (startval == 0 && includes both goals) { // add goal checker method 
 			return true; //
