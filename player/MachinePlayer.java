@@ -69,7 +69,7 @@ public class MachinePlayer extends Player {
       }
 
 
-      for (Move m : possibleMoves) {
+      for (each legal move m) {
         Move move = new Move(newx, newy);
         Board.execMove(move, color);
 
