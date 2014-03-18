@@ -23,3 +23,4 @@ think of ways to improve blocking strat
 find worst chip on board for step moves (no connection, etc)
 
 ---> when uncommented use this in ab-pruning: for (Move m : possibleMoves) {}
+---> implement boolean reset on hasNetwork()

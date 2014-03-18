@@ -243,6 +243,26 @@ public class Board {
 		return STEP;
 	}
 
+
+	/**
+	* returns the worst chip on this board. Used for deciding which step move to make.
+	* Chip will ideally have:
+	* 	- No significance blocking a network.
+	*	- No 
+	* 
+	*
+	*
+	**/
+	public Chip worstChip() {
+		ListNode currChip = this.chips.front();
+		while (currChip.isValidNode()) {
+			if (currChip.getColor() == MachinePlayer.color) {
+
+			}
+		}
+
+	}
+
 	// /**
 	// * execMove() takes in a move and executes it as a step or add move
 	// * @param m is the move being executed
@@ -315,27 +335,37 @@ public class Board {
 
 	/**
 	* hasNetwork() is a method called by a board that returns true if a network exists
-	* @param color is an integer that states which player is going
+	* called on a chip in the current players starting goal
 	* @param startval
 	**/
-	// public boolean hasNetwork(int color, int x, int y, int startval) {
-	// 	if (startval == 0 && includes both goals) { // add goal checker method 
-	// 		return true; //
-	// 	}
-	// 	if (color == BLACK) {
-	// 		//do black stuff
-	// 		chip.setChecked();
-	// 		for(connections in chip) {
+	public boolean hasNetwork(int startval) {
+	 	if (color == BLACK) {
+	 		if (startval == 0 && includes both goals) {
+	 			return true;
+	 		}
+	 		chip.setCheck(true);
+	 		ListNode curr = chip.edges.front();
+	 		while (curr.isValidNode() && curr.isSeen == false) {
+	 			curr.hasNetwork(startval - 1);
+	 			curr = curr.next();
+	 		}
 
-	// 		} 
-	// 	}
-	// 	if (color == WHITE) {
-	// 		//do white stuff 
-	// 	}
-	// 	else {
-	// 		return false; // reached a dead-end, not network found. 
-	// 	}
-	// }
+	 	}
+	 	if (color == WHITE) {
+	 		if (startval == 0 && includes both goals) {
+	 			return true;
+	 		}
+	 		chip.setChecked();
+	 		ListNode curr = chip.edges.front();
+	 		while (curr.isValidNode() && curr.isSeen == false) {
+	 			curr.hasNetwork(startval - 1);
+	 			curr = curr.next();
+	 		}
+	 	}
+	 	else {
+	 		return false; // reached a dead-end, no network found. 
+	 	}
+	 }
 
 
 

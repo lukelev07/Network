@@ -8,7 +8,7 @@ public class Chip implements Comparable {
 	protected int x;
 	protected int y;
 	// when checking networks, cant use same chip twice. This maintains rule
-	public boolean isChecked;
+	public boolean isSeen;
 	protected Set edges;
 	public Board board;
 
@@ -23,7 +23,7 @@ public class Chip implements Comparable {
 		this.color = color;
 		this.x = x;
 		this.y = y;
-		isChecked = false;
+		isSeen = false;
 		this.edges = new Set();
 		this.board = board;
 	}
@@ -52,8 +52,12 @@ public class Chip implements Comparable {
 		return color;
 	}
 
-	public void setCheck() {
-		isChecked = true;
+
+	/**
+	* setCheck() changes the seen value, for checking networks. 
+	**/
+	public void setCheck(boolean new) {
+		isSeen = new;
 	}
 
 
