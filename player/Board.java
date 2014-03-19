@@ -347,6 +347,7 @@ public class Board {
 	 		ListNode curr = chip.edges.front();
 	 		while (curr.isValidNode() && curr.isSeen == false) {
 	 			curr.hasNetwork(startval - 1);
+	 			chip.setCheck(false); //might be wrong placement 
 	 			curr = curr.next();
 	 		}
 
