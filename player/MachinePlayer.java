@@ -68,18 +68,18 @@ public class MachinePlayer extends Player {
         myBest.score = beta; 
       }
 
-
+      myBest.move = randomForTesting(); // if all moves are losing return a random move. 
       for (each legal move m) {
         Move move = new Move(newx, newy);
-        Board.execMove(move, color);
+        Board.execMove(move, color); //modifies this grid 
 
         reply = abPrune(oppColor(color), alpha, beta);
-        Board.undoMove(move, color);
-        if side((side == color) && (reply.getScore() >= myBest.getScore())) {
+        Board.undoMove(move, color); // restores this grid 
+        if side((side == color) && (reply.getScore() > myBest.getScore())) {
           myBest.move = m;
           myBest.score = reply.getScore();
           alpha = reply.getScore();
-        } else if ((color == oppColor(color)) && (reply.getScore() <= myBest.getScore())) {
+        } else if ((color == oppColor(color)) && (reply.getScore() < myBest.getScore())) {
           myBest.move = m; 
           myBest.score = reply.getScore; 
           beta = reply.getScore;
