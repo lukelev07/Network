@@ -1,5 +1,5 @@
 
-import player.*;
+package player;
 public class Board {
 	/** 
 	 *  declare fields here
@@ -56,7 +56,7 @@ public class Board {
 	 * @param x is the x coordinate of the chip being created
 	 * @param y is the y coordinate of the chip being created
 	 **/
-	private boolean isValidMove(int color, int x, int y) {
+	protected boolean isValidMove(int color, int x, int y) {
 		try {
 			if (!(color == Chip.BLACK && x > 0 && x < this.size-1) && !(color == Chip.WHITE && y > 0 && y < this.size-1)) {
 				return false;
@@ -256,17 +256,17 @@ public class Board {
 
 
 
-	/**
-	* undoMove() takes in a move and undoes it.
-	* used for testing possible moves 
-	* @param m is the move being undone
-	* @param color is an integer representing whose turn it is
-	**/
-	public void undoMove(Move m, int color) {
-		if (m.movekind == 1) {
-			this.removeChip(color, m.x1, m.x2);
-		}
-	}
+	// /**
+	// * undoMove() takes in a move and undoes it.
+	// * used for testing possible moves 
+	// * @param m is the move being undone
+	// * @param color is an integer representing whose turn it is
+	// **/
+	// public void undoMove(Move m, int color) {
+	// 	if (m.movekind == 1) {
+	// 		this.removeChip(color, m.x1, m.x2);
+	// 	}
+	// }
 
 /*	public BestMove chooseMove(int side, int alpha, int beta) {
 		Best myBest = new BestMove();
@@ -301,14 +301,14 @@ public class Board {
 	/**
 	* returns whether or not a win is possible given an array of connections from goal to goal.  
 	**/
-	public boolean hasWin() {
-		for(int i = 0; i < connections.length() -1; i++) {
-			if (connections[i].length() >= 6) {
-				return true;
-			}
-		}
-		return false;
-	}
+	// public boolean hasWin() {
+	// 	for(int i = 0; i < connections.length() -1; i++) {
+	// 		if (connections[i].length() >= 6) {
+	// 			return true;
+	// 		}
+	// 	}
+	// 	return false;
+	// }
 
 
 
@@ -318,24 +318,24 @@ public class Board {
 	* @param color is an integer that states which player is going
 	* @param startval
 	**/
-	public boolean hasNetwork(int color, int x, int y, int startval) {
-		if (startval == 0 && includes both goals) { // add goal checker method 
-			return true; //
-		}
-		if (color == BLACK) {
-			//do black stuff
-			chip.setChecked();
-			for(connections in chip) {
+	// public boolean hasNetwork(int color, int x, int y, int startval) {
+	// 	if (startval == 0 && includes both goals) { // add goal checker method 
+	// 		return true; //
+	// 	}
+	// 	if (color == BLACK) {
+	// 		//do black stuff
+	// 		chip.setChecked();
+	// 		for(connections in chip) {
 
-			} 
-		}
-		if (color == WHITE) {
-			//do white stuff 
-		}
-		else {
-			return false; // reached a dead-end, not network found. 
-		}
-	}
+	// 		} 
+	// 	}
+	// 	if (color == WHITE) {
+	// 		//do white stuff 
+	// 	}
+	// 	else {
+	// 		return false; // reached a dead-end, not network found. 
+	// 	}
+	// }
 
 
 

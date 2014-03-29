@@ -30,7 +30,7 @@ public class MachinePlayer extends Player {
   // Returns a new move by "this" player.  Internally records the move (updates
   // the internal game board) as a move by "this" player.
   public Move chooseMove() {
-    Move temp = randomForTesting();
+    Move temp = RandomMove.randomForTesting(board, color);
     board.execMove(temp, color);
     return temp;
   } 
