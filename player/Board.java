@@ -1,5 +1,5 @@
 
-package player;
+import player.*;
 public class Board {
 	/** 
 	 *  declare fields here
@@ -244,76 +244,107 @@ public class Board {
 	}
 
 	/**
-	* returns true only if this player has a win on the board. 
+	* execMove() takes in a move and executes it as a step or add move
+	* @param m is the move being executed
+	* @param color is an integer representing whose turn it is
 	**/
-	/*public boolean hasWin() {
-		if (board.hasNetwork(6)) {
-			return true;
+	public void execMove(Move m, int color) {
+		if (m.moveKind == 1) {
+			this.placeChip(color, m.x1, m.x2);
+		}
+	}
+
+
+
+	/**
+	* undoMove() takes in a move and undoes it.
+	* used for testing possible moves 
+	* @param m is the move being undone
+	* @param color is an integer representing whose turn it is
+	**/
+	public void undoMove(Move m, int color) {
+		if (m.movekind == 1) {
+			this.removeChip(color, m.x1, m.x2);
+		}
+	}
+
+/*	public BestMove chooseMove(int side, int alpha, int beta) {
+		Best myBest = new BestMove();
+		Best reply; 
+
+		if (current grid full or has a win) {
+			return a BestMove with the grids score, no move;
+		}
+		if (side == computer) {
+			myBest.score = alpha; 
+		} else {
+			myBest.score = beta; 
+		}
+		for (each legal move m) {
+			perform move m;
+			reply = chooseMove(! side , alpha, beta);
+			undo move m;
+			if side((side == computer) && (reply.score >= myBest.score)) {
+				myBest.move = m;
+				myBest.score = reply.score;
+				alpha = reply.score;
+			} else if ((side == human) && (reply.score <= myBest.score)) {
+				myBest.move = m; 
+				myBest.score = reply.score; 
+				beta = reply.score;
+			}
+			if( alpha >= beta) { return myBest; }
+		}
+		return myBest;
+	} */
+
+	/**
+	* returns whether or not a win is possible given an array of connections from goal to goal.  
+	**/
+	public boolean hasWin() {
+		for(int i = 0; i < connections.length() -1; i++) {
+			if (connections[i].length() >= 6) {
+				return true;
+			}
 		}
 		return false;
-	} */
-	
-
-	// /**
-	// * execMove() takes in a move and executes it as a step or add move
-	// * @param m is the move being executed
-	// * @param color is an integer representing whose turn it is
-	// **/
-	// public void execMove(Move m, int color) {
-	// 	if (m.moveKind == 1) {
-	// 		this.placeChip(color, m.x1, m.x2);
-	// 	}
-	// }
+	}
 
 
 
-	// *
-	// * undoMove() takes in a move and undoes it.
-	// * used for testing possible moves 
-	// * @param m is the move being undone
-	// * @param color is an integer representing whose turn it is
-	// *
-	// public void undoMove(Move m, int color) {
-	// 	if (m.movekind == 1) {
-	// 		this.removeChip(color, m.x1, m.x2);
-	// 	}
-	// }
 
-	// /**
-	// * hasNetwork() is a method called by a board that returns true if a network exists
-	// * called on a chip in the current players starting goal
-	// * @param startval
-	// **/
-	// public boolean hasNetwork(int startval) {
-	//  	if (color == BLACK) {
-	//  		if (startval == 0 && includes both goals) {
-	//  			return true;
-	//  		}
-	//  		chip.setCheck(true);
-	//  		ListNode curr = chip.edges.front();
-	//  		while (curr.isValidNode() && curr.isSeen == false) {
-	//  			curr.hasNetwork(startval - 1);
-	//  			chip.setCheck(false); //might be wrong placement 
-	//  			curr = curr.next();
-	//  		}
+	/**
+	* hasNetwork() is a method called by a board that returns true if a network exists
+	* @param color is an integer that states which player is going
+	* @param startval
+	**/
+	public boolean hasNetwork(int color, int x, int y, int startval) {
+		if (startval == 0 && includes both goals) { // add goal checker method 
+			return true; //
+		}
+		if (color == BLACK) {
+			//do black stuff
+			chip.setChecked();
+			for(connections in chip) {
 
-	//  	}
-	//  	if (color == WHITE) {
-	//  		if (startval == 0 && includes both goals) {
-	//  			return true;
-	//  		}
-	//  		chip.setChecked();
-	//  		ListNode curr = chip.edges.front();
-	//  		while (curr.isValidNode() && curr.isSeen == false) {
-	//  			curr.hasNetwork(startval - 1);
-	//  			curr = curr.next();
-	//  		}
-	//  	}
-	//  	else {
-	//  		return false; // reached a dead-end, no network found. 
-	//  	}
-	//  }
+			} 
+		}
+		if (color == WHITE) {
+			//do white stuff 
+		}
+		else {
+			return false; // reached a dead-end, not network found. 
+		}
+	}
 
+
+
+	/*start param at 6 
+	if param == 0 , return true: 
+	//for each chip in spot (nope)
+	    check for connections to that chip (set to visited first) 
+	        for each connection
+	            call recursively (param - 1) if not checked already */
 
 	/**
 	* returns a String representation of the board

@@ -30,10 +30,9 @@ public class MachinePlayer extends Player {
   // Returns a new move by "this" player.  Internally records the move (updates
   // the internal game board) as a move by "this" player.
   public Move chooseMove() {
-    // Move temp = randomForTesting();
-    // board.execMove(temp, color);
-    // return temp;
-    return new Move();
+    Move temp = randomForTesting();
+    board.execMove(temp, color);
+    return temp;
   } 
 
   // If the Move m is legal, records the move as a move by the opponent
@@ -53,55 +52,53 @@ public class MachinePlayer extends Player {
     return false;
   }
 
-  // public BestMove abPrune(int side, int alpha, int beta, int depth) {
-  //     Best myBest = new BestMove();
-  //     Best reply;
-  //     int[] valmoves = new int[]; 
+  public BestMove abPrune(int side, int alpha, int beta) {
+      Best myBest = new BestMove();
+      Best reply;
 
-  //     if (depth == 0) {
-  //       //evaluate from here search depth reached.
-  //       Board.evaluate(side, alpha, beta); 
-  //     }
-  //     if (board.haswin() || ) {
-  //       return a BestMove with the grids score, no move;
-  //     }
-  //     if (side == color) {
-  //       myBest.score = alpha; 
-  //     } else {
-  //       myBest.score = beta; 
-  //     }
+      int[] valmoves = new int[] 
 
-  //     myBest.move = randomForTesting(); // if all moves are losing return a random move. 
-  //     for (int i = 0; i<valmoves.length; i++) {
-  //       Move move = new Move(newx, newy);
-  //       Board.execMove(move, color); //modifies this grid 
 
-  //       reply = abPrune(oppColor(color), alpha, beta, depth-1);
-  //       Board.undoMove(move, color); // restores this grid 
-  //       if side((side == color) && (reply.getScore() > myBest.getScore())) {
-  //         myBest.move = m;
-  //         myBest.score = reply.getScore();
-  //         alpha = reply.getScore();
-  //       } else if ((color == oppColor(color)) && (reply.getScore() < myBest.getScore())) {
-  //         myBest.move = m; 
-  //         myBest.score = reply.getScore; 
-  //         beta = reply.getScore;
-  //       }
-  //       if(alpha >= beta) { 
-  //         return myBest;
-  //       }
-  //     }
-  //     return myBest;
-  //   }
+      if (current grid full or has a win) {
+        return a BestMove with the grids score, no move;
+      }
+      if (side == color) {
+        myBest.score = alpha; 
+      } else {
+        myBest.score = beta; 
+      }
 
-    // public int oppColor(color) {
-    //   if (color == 0) {
-    //     return 1;
-    //   }
-    //   else {
-    //     return 0;
-    //   }
-    // }
+
+      for (each legal move m) {
+        Move move = new Move(newx, newy);
+        Board.execMove(move, color);
+
+        reply = abPrune(oppColor(color), alpha, beta);
+        Board.undoMove(move, color);
+        if side((side == color) && (reply.getScore() >= myBest.getScore())) {
+          myBest.move = m;
+          myBest.score = reply.getScore();
+          alpha = reply.getScore();
+        } else if ((color == oppColor(color)) && (reply.getScore() <= myBest.getScore())) {
+          myBest.move = m; 
+          myBest.score = reply.getScore; 
+          beta = reply.getScore;
+        }
+        if(alpha >= beta) { 
+          return myBest;
+        }
+      }
+      return myBest;
+    }
+
+    public int oppColor(color) {
+      if (color == 0) {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+    }
 
 
 }
