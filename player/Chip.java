@@ -53,12 +53,12 @@ public class Chip implements Comparable {
 	}
 
 
-	/**
-	* setCheck() changes the seen value, for checking networks. 
-	**/
-	public void setCheck(boolean new) {
-		isSeen = new;
-	}
+	// /**
+	// * setCheck() changes the seen value, for checking networks. 
+	// **/
+	// public void setCheck(boolean new) {
+	// 	isSeen = new;
+	// }
 
 
 	/**

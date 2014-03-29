@@ -279,40 +279,40 @@ public class Board {
 	// 	}
 	// }
 
-	/**
-	* hasNetwork() is a method called by a board that returns true if a network exists
-	* called on a chip in the current players starting goal
-	* @param startval
-	**/
-	public boolean hasNetwork(int startval) {
-	 	if (color == BLACK) {
-	 		if (startval == 0 && includes both goals) {
-	 			return true;
-	 		}
-	 		chip.setCheck(true);
-	 		ListNode curr = chip.edges.front();
-	 		while (curr.isValidNode() && curr.isSeen == false) {
-	 			curr.hasNetwork(startval - 1);
-	 			chip.setCheck(false); //might be wrong placement 
-	 			curr = curr.next();
-	 		}
+	// /**
+	// * hasNetwork() is a method called by a board that returns true if a network exists
+	// * called on a chip in the current players starting goal
+	// * @param startval
+	// **/
+	// public boolean hasNetwork(int startval) {
+	//  	if (color == BLACK) {
+	//  		if (startval == 0 && includes both goals) {
+	//  			return true;
+	//  		}
+	//  		chip.setCheck(true);
+	//  		ListNode curr = chip.edges.front();
+	//  		while (curr.isValidNode() && curr.isSeen == false) {
+	//  			curr.hasNetwork(startval - 1);
+	//  			chip.setCheck(false); //might be wrong placement 
+	//  			curr = curr.next();
+	//  		}
 
-	 	}
-	 	if (color == WHITE) {
-	 		if (startval == 0 && includes both goals) {
-	 			return true;
-	 		}
-	 		chip.setChecked();
-	 		ListNode curr = chip.edges.front();
-	 		while (curr.isValidNode() && curr.isSeen == false) {
-	 			curr.hasNetwork(startval - 1);
-	 			curr = curr.next();
-	 		}
-	 	}
-	 	else {
-	 		return false; // reached a dead-end, no network found. 
-	 	}
-	 }
+	//  	}
+	//  	if (color == WHITE) {
+	//  		if (startval == 0 && includes both goals) {
+	//  			return true;
+	//  		}
+	//  		chip.setChecked();
+	//  		ListNode curr = chip.edges.front();
+	//  		while (curr.isValidNode() && curr.isSeen == false) {
+	//  			curr.hasNetwork(startval - 1);
+	//  			curr = curr.next();
+	//  		}
+	//  	}
+	//  	else {
+	//  		return false; // reached a dead-end, no network found. 
+	//  	}
+	//  }
 
 
 	/**
