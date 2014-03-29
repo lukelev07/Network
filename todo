@@ -1,26 +1,9 @@
-1. document methods
-3. test methods
-4. list of valid moves
-5. edges in graph
-6. check for win
-7. strategy
-8. find worst chip on the board
+
+1. list of valid moves
+2. check for win
+3. strategy (evaluate)
+4. hasnetwork 
 
 
 
-start param at 6 
-if param == 0 , return true: 
-for each chip in spot //
-    check for connections to that chip (set to visited first) 
-        for each connection
-            call recursively (param - 1) if not checked already 
 
-
-TO DO LUKE REMINDER !
-
-finish for loop in ab search
-think of ways to improve blocking strat 
-find worst chip on board for step moves (no connection, etc)
-
----> when uncommented use this in ab-pruning: for (Move m : possibleMoves) {}
----> implement boolean reset on hasNetwork()
