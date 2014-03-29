@@ -18,12 +18,12 @@ public class Move {
   public final static int ADD = 1;
   public final static int STEP = 2;
 
-  public int moveKind;  // ADD, STEP, or QUIT.
+  protected int moveKind;  // ADD, STEP, or QUIT.
                         
-  public int x1;        // If moveKind == ADD, then x1, y1 are the new
-  public int y1;        //   position in which a chip is being added;
-  public int x2;        //   x2, y2 are unused.
-  public int y2;        // If moveKind == STEP, then x1, y1 are the new
+  protected int x1;        // If moveKind == ADD, then x1, y1 are the new
+  protected int y1;        //   position in which a chip is being added;
+  protected int x2;        //   x2, y2 are unused.
+  protected int y2;        // If moveKind == STEP, then x1, y1 are the new
                         //   position, and x2, y2 are the old position
                         //   of the chip.
                         // If moveKind == QUIT, then x1, x2, y1, y2 are unused.
