@@ -243,25 +243,16 @@ public class Board {
 		return STEP;
 	}
 
-
 	/**
-	* returns the worst chip on this board. Used for deciding which step move to make.
-	* Chip will ideally have:
-	* 	- No significance blocking a network.
-	*	- No 
-	* 
-	*
-	*
+	* returns true only if this player has a win on the board. 
 	**/
-	public Chip worstChip() {
-		ListNode currChip = this.chips.front();
-		while (currChip.isValidNode()) {
-			if (currChip.getColor() == MachinePlayer.color) {
-
-			}
+	/*public boolean hasWin() {
+		if (board.hasNetwork(6)) {
+			return true;
 		}
-
-	}
+		return false;
+	} */
+	
 
 	// /**
 	// * execMove() takes in a move and executes it as a step or add move
@@ -287,51 +278,6 @@ public class Board {
 	// 		this.removeChip(color, m.x1, m.x2);
 	// 	}
 	// }
-
-/*	public BestMove chooseMove(int side, int alpha, int beta) {
-		Best myBest = new BestMove();
-		Best reply; 
-
-		if (current grid full or has a win) {
-			return a BestMove with the grids score, no move;
-		}
-		if (side == computer) {
-			myBest.score = alpha; 
-		} else {
-			myBest.score = beta; 
-		}
-		for (each legal move m) {
-			perform move m;
-			reply = chooseMove(! side , alpha, beta);
-			undo move m;
-			if side((side == computer) && (reply.score >= myBest.score)) {
-				myBest.move = m;
-				myBest.score = reply.score;
-				alpha = reply.score;
-			} else if ((side == human) && (reply.score <= myBest.score)) {
-				myBest.move = m; 
-				myBest.score = reply.score; 
-				beta = reply.score;
-			}
-			if( alpha >= beta) { return myBest; }
-		}
-		return myBest;
-	} */
-
-	/**
-	* returns whether or not a win is possible given an array of connections from goal to goal.  
-	**/
-	// public boolean hasWin() {
-	// 	for(int i = 0; i < connections.length() -1; i++) {
-	// 		if (connections[i].length() >= 6) {
-	// 			return true;
-	// 		}
-	// 	}
-	// 	return false;
-	// }
-
-
-
 
 	/**
 	* hasNetwork() is a method called by a board that returns true if a network exists
@@ -368,14 +314,6 @@ public class Board {
 	 	}
 	 }
 
-
-
-	/*start param at 6 
-	if param == 0 , return true: 
-	//for each chip in spot (nope)
-	    check for connections to that chip (set to visited first) 
-	        for each connection
-	            call recursively (param - 1) if not checked already */
 
 	/**
 	* returns a String representation of the board

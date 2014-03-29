@@ -52,14 +52,16 @@ public class MachinePlayer extends Player {
     return false;
   }
 
-  public BestMove abPrune(int side, int alpha, int beta) {
+  public BestMove abPrune(int side, int alpha, int beta, int depth) {
       Best myBest = new BestMove();
       Best reply;
+      int[] valmoves = new int[]; 
 
-      int[] valmoves = new int[] 
-
-
-      if (current grid full or has a win) {
+      if (depth == 0) {
+        //evaluate from here search depth reached.
+        Board.evaluate(side, alpha, beta); 
+      }
+      if (board.haswin() || ) {
         return a BestMove with the grids score, no move;
       }
       if (side == color) {
@@ -69,11 +71,11 @@ public class MachinePlayer extends Player {
       }
 
       myBest.move = randomForTesting(); // if all moves are losing return a random move. 
-      for (each legal move m) {
+      for (int i = 0; i<valmoves.length; i++) {
         Move move = new Move(newx, newy);
         Board.execMove(move, color); //modifies this grid 
 
-        reply = abPrune(oppColor(color), alpha, beta);
+        reply = abPrune(oppColor(color), alpha, beta, depth-1);
         Board.undoMove(move, color); // restores this grid 
         if side((side == color) && (reply.getScore() > myBest.getScore())) {
           myBest.move = m;
