@@ -51,8 +51,12 @@ public class Chip implements Comparable {
 		return color;
 	}
 
-	public void setCheck() {
-		isChecked = true;
+	/**
+	* setCheck() changes the "seen" value of a chip.
+	* @param new represents the new "seen" status a chip will have
+	**/
+	public void setCheck(boolean new) {
+		isChecked = new;
 	}
 
 

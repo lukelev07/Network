@@ -29,7 +29,6 @@ public class Board {
 		chips = new Set();
 	}
 
-
 	/**
 	* zero parameter constructor that initializes an 8x8 2d array to hold chips
 	* The board is initially empty
@@ -37,8 +36,6 @@ public class Board {
 	public Board() {
 		this(8);
 	}
-
-
 
 	/**
 	 * private method that constructs and returns a new Chip
@@ -60,6 +57,7 @@ public class Board {
 	public Chip getChip(int x, int y) throws ArrayIndexOutOfBoundsException {
 		return board[x][y];
 	}
+
 	/**
 	 * isValidMove() returns a boolean that indicates the legality of placing a chip of int color in x,y
 	 * will raise an ArrayIndexOutOfBoundsException if the coordinates are out of the bounds of the array
@@ -98,14 +96,17 @@ public class Board {
 			return false;
 		}
 	}
+
+	/**
+	 * isValidMove() returns a boolean that indicates the legality of placing a chip of int color in x,y
+	 * will raise an ArrayIndexOutOfBoundsException if the coordinates are out of the bounds of the array
+	 * @param color is either one or zero, depending on white or black
+	 * @param move is the move of the chip being created
+	 **/
 	protected boolean isValidMove(int color, Move m) {
 		System.out.println(m);
 		return isValidMove(color, m.x1, m.y1);
 	}
-
-
-
-
 
 	/**
 	* placeChip() constructs a new chip of int color and then assigns it to the board at that coord
@@ -128,8 +129,6 @@ public class Board {
 			return false;
 		}
 	}
-
-
 
 	/**
 	* removeChip() removes the Chip located at x,y
@@ -171,7 +170,6 @@ public class Board {
 		}
 	}
 
-
 	/**
 	* moveChip() removes the Chip located at x1,y1 and places the chip at x2,y2
 	* will return true if a chip is moved, else returns false
@@ -195,8 +193,6 @@ public class Board {
 		}
 	}
 
-
-
 	/**
 	 *  numNeighbors() determines if the given position has a safe amount of neighbors
 	 *  to place a new chip in. The README states no chip may have more than one adjacent 
@@ -217,8 +213,6 @@ public class Board {
 		}
 		return sameNeighbors;
 	}
-
-
 
 	/**
 	* getNeighbors() returns a Chip array of length nine containg nulls and neighbors
@@ -439,18 +433,5 @@ public class Board {
 		int[] hellll = {1,2,3,4};
 		System.out.println(hellll);
 
-
-
-
-
-
-
-
-
-
-
-
-
 	}
-
 }
