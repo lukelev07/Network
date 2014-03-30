@@ -109,6 +109,28 @@ public class Board {
 	}
 
 	/**
+	 * validMoves() returns an array of all the possible moves a given color could make
+	 * will iterate through the board and check for a valid move before appending that move 
+	 * @param color is the color of moves to be checked 
+	 * @return a Move array containing valid moves
+	 **/
+	protected Move[] validMoves(int color) {
+		Move[] moves = new Move(60);
+		int index = 0;
+
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				if (isValidMove(color, i, j)) {
+					Move m = new Move(i, j);
+					moves[index] = m;
+					index++;
+				}
+			}
+		}
+		return moves; 
+	}
+
+	/**
 	* placeChip() constructs a new chip of int color and then assigns it to the board at that coord
 	* it will return true or false depending on if a Chip was placed
 	* will throw an ArrayIndexOutOfBoundsException if the coords are out of the bounds
