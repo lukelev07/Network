@@ -16,6 +16,8 @@ public class RandomMove extends Move {
       while (!board.isValidMove(color,x,y)) {
         x = rand.nextInt(8);
         y = rand.nextInt(8);
+        System.out.println(""+x+", "+y);
+        System.out.flush();
       }
       return new Move(x,y);
     }

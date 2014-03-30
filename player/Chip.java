@@ -29,7 +29,6 @@ public class Chip implements Comparable {
 	}
 
 
-
 	/**
 	* getX() returns the x coordinate of the Chip
 	**/

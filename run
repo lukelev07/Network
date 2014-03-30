@@ -4,3 +4,4 @@ echo
 echo -------------------------------------------------
 echo
 java player/Board
+#java Network machine random

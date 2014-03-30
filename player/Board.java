@@ -1,5 +1,6 @@
 
 package player;
+	import java.util.Arrays;
 public class Board {
 	/** 
 	 *  declare fields here
@@ -7,6 +8,7 @@ public class Board {
 	 *
 	 *
 	 **/
+
 
 	protected Set chips;
 	protected Chip[][] board;
@@ -48,7 +50,16 @@ public class Board {
 		return new Chip(color, x, y, this);
 	}
 
-
+	/**
+	* getChip() returns the chip at an index x,y if a chip exists. 
+	* if the chip does not exist it returns null
+	* will raise an ArrayIndexOutOfBoundsException if the coordinates are out of the bounds of the array
+	 * @param x is the x coordinate of the chip being retrieved
+	 * @param y is the y coordinate of the chip being retrieved
+	**/
+	public Chip getChip(int x, int y) throws ArrayIndexOutOfBoundsException {
+		return board[x][y];
+	}
 	/**
 	 * isValidMove() returns a boolean that indicates the legality of placing a chip of int color in x,y
 	 * will raise an ArrayIndexOutOfBoundsException if the coordinates are out of the bounds of the array
@@ -58,6 +69,9 @@ public class Board {
 	 **/
 	protected boolean isValidMove(int color, int x, int y) {
 		try {
+			if (this.getChip(x,y) != null) {
+				return false;
+			}
 			if (!(color == Chip.BLACK && x > 0 && x < this.size-1) && !(color == Chip.WHITE && y > 0 && y < this.size-1)) {
 				return false;
 			}
@@ -68,10 +82,11 @@ public class Board {
 			if (this.numNeighbors(color,x,y) == 0) {
 				return true;
 			}
-
+			System.out.println("LOOK HERE");
+			System.out.flush();
 			Chip[] neighbors = this.getNeighbors(x,y);
 			for (int i = 0; i < neighbors.length; i++) {
-				if (neighbors[i].getColor() == color) {
+				if (neighbors[i] != null && neighbors[i].getColor() == color) {
 					return this.numNeighbors(neighbors[i].getColor(), neighbors[i].getX(), neighbors[i].getY()) == 0;
 				}
 			}
@@ -83,17 +98,12 @@ public class Board {
 			return false;
 		}
 	}
-
-	/**
-	* getChip() returns the chip at an index x,y if a chip exists. 
-	* if the chip does not exist it returns null
-	* will raise an ArrayIndexOutOfBoundsException if the coordinates are out of the bounds of the array
-	 * @param x is the x coordinate of the chip being retrieved
-	 * @param y is the y coordinate of the chip being retrieved
-	**/
-	public Chip getChip(int x, int y) throws ArrayIndexOutOfBoundsException {
-		return board[x][y];
+	protected boolean isValidMove(int color, Move m) {
+		System.out.println(m);
+		return isValidMove(color, m.x1, m.y1);
 	}
+
+
 
 
 
@@ -223,6 +233,7 @@ public class Board {
 			for (int j = -1; j <= 1; j++) {
 				try {
 					neighbors[index] = this.getChip(x+i, y+j);
+					System.out.println(neighbors[index]);
 				}
 				catch (ArrayIndexOutOfBoundsException e2) {
 					neighbors[index] = null;
@@ -418,6 +429,15 @@ public class Board {
 		System.out.println(""+test1);
 		System.out.println(""+test1.chips);
 		System.out.println("" + test1.getChip(3,2).getEdges());
+		test1.placeChip(Chip.BLACK, 3,3);
+		System.out.println("helllllooooooooo");
+		System.out.println(""+test1.getNeighbors(3,2));
+
+		Chip[] hello = {test1.newChip(Chip.BLACK, 4,5)};
+		System.out.println(Arrays.toString(hello));
+
+		int[] hellll = {1,2,3,4};
+		System.out.println(hellll);
 
 
 
