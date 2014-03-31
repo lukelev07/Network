@@ -115,7 +115,7 @@ public class Board {
 	 * @return a Move array containing valid moves
 	 **/
 	protected Move[] validMoves(int color) {
-		Move[] moves = new Move(60);
+		Move[] moves = new Move[60];
 		int index = 0;
 
 		for (int i = 0; i < size; i++) {
@@ -283,17 +283,17 @@ public class Board {
 
 
 
-	// /**
-	// * undoMove() takes in a move and undoes it.
-	// * used for testing possible moves 
-	// * @param m is the move being undone
-	// * @param color is an integer representing whose turn it is
-	// **/
-	// public void undoMove(Move m, int color) {
+	 /**
+	 * undoMove() takes in a move and undoes it.
+	 * used for testing possible moves 
+	 * @param m is the move being undone
+	 * @param color is an integer representing whose turn it is
+	 **/
+	 public void undoMove(Move m, int color) {
 	// 	if (m.movekind == 1) {
 	// 		this.removeChip(color, m.x1, m.x2);
 	// 	}
-	// }
+	 }
 
 /*	public BestMove chooseMove(int side, int alpha, int beta) {
 		Best myBest = new BestMove();
@@ -328,14 +328,18 @@ public class Board {
 	/**
 	* returns whether or not a win is possible given an array of connections from goal to goal.  
 	**/
-	// public boolean hasWin() {
-	// 	for(int i = 0; i < connections.length() -1; i++) {
+	public boolean hasWin() {
+	//	for(int i = 0; i < connections.length() -1; i++) {
 	// 		if (connections[i].length() >= 6) {
 	// 			return true;
 	// 		}
 	// 	}
 	// 	return false;
-	// }
+		return true;
+	}
+
+	//to stop compiler errors 
+	public int evaluate(int side) {return 0;}
 
 
 

@@ -4,6 +4,7 @@ package player;
 public class BestMove extends Move {
 
     int score;
+    Move move;
 
     public int getScore() {
         return score;
