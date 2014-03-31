@@ -60,17 +60,19 @@ public class MachinePlayer extends Player {
     return false;
   }
 
- public BestMove abPrune(int side, int alpha, int beta, int depth) {
+/* public BestMove abPrune(int side, int alpha, int beta, int depth) {
      BestMove myBest = new BestMove();
      BestMove reply;
      Move[] valMoves = board.validMoves(side);
+     //compute valid step moves 
 
      // search depth reached; call evaluate
      if (depth == 0) {
-      board.evaluate(side);
+      board.evaluate(color);
      }
       
      if (board.hasWin()) { //current grid full "or" case 
+         myBest.score = board.evaluate(color);
          return myBest;
      }
      if (side == color) {
@@ -80,26 +82,34 @@ public class MachinePlayer extends Player {
      }
 
      for (int i = 0; i < valMoves.length; i++) {
-         Move move = new Move(valMoves[i].x1, valMoves[i].y1);
-         board.execMove(move, side);
+        //if step create new step move  
+        if (board.moveType() == STEP) {
+          Move move = new Move(x1, y1, x2, y2); 
+        }
+        //else just do a regular move
+        if (board.moveType() == ADD) {
+          Move move = new Move(valMoves[i].x1, valMoves[i].y1);
+        }
 
-         reply = abPrune(oppColor(side), alpha, beta, depth - 1);
-         board.undoMove(move, side);
-         if ((side == color) && (reply.getScore() >= myBest.getScore())) {
-             myBest.move = move;
-             myBest.score = reply.getScore();
-             alpha = reply.getScore();
-         } else if ((color == oppColor(color)) && (reply.getScore() <= myBest.getScore())) {
-             myBest.move = move; 
-             myBest.score = reply.getScore(); 
-             beta = reply.getScore();
-         }
-         if(alpha >= beta) { 
-             return myBest;
-         }
-       }
-       return myBest;
-    }
+        board.execMove(move, side); //make exec move work for step
+
+        reply = abPrune(oppColor(side), alpha, beta, depth - 1);
+        board.undoMove(move, side);
+        if ((side == color) && (reply.getScore() >= myBest.getScore())) {
+            myBest.move = move;
+            myBest.score = reply.getScore();
+            alpha = reply.getScore();
+        } else if ((color == oppColor(color)) && (reply.getScore() <= myBest.getScore())) {
+            myBest.move = move; 
+            myBest.score = reply.getScore(); 
+            beta = reply.getScore();
+        }
+        if(alpha >= beta) { 
+            return myBest;
+        }
+      }
+      return myBest;
+  }
 
      public int oppColor(int color) {
        if (color == 0) {
@@ -108,7 +118,7 @@ public class MachinePlayer extends Player {
        else {
          return 0;
        }
-     }
+     }*/
 
 
 }
