@@ -404,8 +404,8 @@ public class Board {
 		return true;
 	}
 
-	//to stop compiler errors 
-	public int evaluate(int side) {return 0;}
+	// //to stop compiler errors 
+	// public int evaluate(int side) {return 0;}
 
 
 
@@ -473,12 +473,17 @@ public class Board {
   		}
   	}
 
-  	// public int evaluate(int color) {
-  		
-  	// }
+  	public int evaluate(int color, int depth) {
+  		if (hasNetwork(color)) {
+  			return Integer.MAX_VALUE - depth;
+  		} else if (hasNetwork(1 - color)) {
+  			return Integer.MIN_VALUE + depth; 
+  		}
 
+  		score += 	
+  	}
 
-
+  	
 	/**
 	* returns a String representation of the board
 	**/

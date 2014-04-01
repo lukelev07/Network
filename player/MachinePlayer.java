@@ -96,13 +96,13 @@ public class MachinePlayer extends Player {
      }
 
      // search depth reached; call evaluate
-     if (depth == 0) {
-      myBest.score = board.evaluate(color);
+     if (depth == searchDepth) {
+      myBest.score = board.evaluate(color, depth);
       return myBest;
      }
 
      if (board.hasWin()) { //current grid full "or" case 
-         myBest.score = board.evaluate(color);
+         myBest.score = board.evaluate(color, depth);
          return myBest;
      }
 
@@ -115,7 +115,7 @@ public class MachinePlayer extends Player {
      for (int i = 0; i < valMoves.length; i++) {
         Move move = valMoves[i];
         board.execMove(move, side); //make exec move work for step
-        reply = abPrune(oppColor(side), alpha, beta, depth - 1);
+        reply = abPrune(oppColor(side), alpha, beta, depth + 1);
         board.undoMove(move, side);
         if ((side == color) && (reply.getScore() >= myBest.getScore())) {
             myBest.move = move;
