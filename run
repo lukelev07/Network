@@ -4,4 +4,4 @@ echo
 echo -------------------------------------------------
 echo
 java player/test
-#java Network machine random
+java Network machine random
