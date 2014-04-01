@@ -19,7 +19,7 @@ public class DListNode extends ListNode {
 
   protected DListNode prev;
   protected DListNode next;
-  Object i;
+  public Object i;
   DList myList;
 
   /**

@@ -8,17 +8,47 @@ public class RandomMove extends Move {
     * Returns a random move if it is valid
     **/
     public static Move randomForTesting(Board board, int color) {
+      Random rand = new Random();
+      if (board.moveType() == Board.ADD) {
+
       int x;
       int y;
-      Random rand = new Random();
+      
       x = rand.nextInt(8);
       y = rand.nextInt(8);
       while (!board.isValidMove(color,x,y)) {
         x = rand.nextInt(8);
         y = rand.nextInt(8);
-        System.out.println(""+x+", "+y);
-        System.out.flush();
       }
-      return new Move(x,y);
+      return new Move(x,y);}
+      else {
+        int x1, x2, y1, y2;
+        x1 = rand.nextInt(8);
+      y1 = rand.nextInt(8);
+      x2 = rand.nextInt(8);
+      y2 = rand.nextInt(8);
+      while (!board.isValidMove(color,x1,y1,x2,y2)) {
+
+          x1 = rand.nextInt(8);
+        y1 = rand.nextInt(8);
+        x2 = rand.nextInt(8);
+        y2 = rand.nextInt(8);
+
+      }
+      return new Move(x1,y1,x2,y2);
+
+
+
+
+
+      }
+
+
+
     }
+
+
+
+
+
 }

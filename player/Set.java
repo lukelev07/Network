@@ -55,7 +55,7 @@ public class Set {
         }
         if (c.compareTo(curr.item()) < 0) {
           curr.insertBefore(c);
-          System.out.println("inserted");
+          // System.out.println("inserted");
           return;
         }
         curr = curr.next();
@@ -64,7 +64,7 @@ public class Set {
         return;
       }
     }
-      set.insertBack(c);
+    set.insertBack(c);
   }
 
   public boolean contains(Comparable c) {
@@ -137,45 +137,45 @@ public class Set {
    **/
   public void intersect(Set s) {
       //Your solution here.
-      ListNode this_curr = set.front();
-      ListNode s_curr = s.set.front();
-      while (s_curr.isValidNode()) {
-        try {
-          if (((Comparable)this_curr.item()).compareTo((Comparable)s_curr.item()) == 0) {
-            this_curr = this_curr.next();
-            s_curr = s_curr.next();
-          }
-          else if (((Comparable)this_curr.item()).compareTo((Comparable)s_curr.item()) > 0) {
-            s_curr = s_curr.next();
-          }
-          else {
-            ListNode temp = this_curr.next();
-            this_curr.remove();
-            this_curr = temp;
-          }
+    ListNode this_curr = set.front();
+    ListNode s_curr = s.set.front();
+    while (s_curr.isValidNode()) {
+      try {
+        if (((Comparable)this_curr.item()).compareTo((Comparable)s_curr.item()) == 0) {
+          this_curr = this_curr.next();
+          s_curr = s_curr.next();
         }
-        catch (InvalidNodeException e) {
-          break;
+        else if (((Comparable)this_curr.item()).compareTo((Comparable)s_curr.item()) > 0) {
+          s_curr = s_curr.next();
         }
-        
-      }
-      while (this_curr.isValidNode()) {
-        try {
+        else {
           ListNode temp = this_curr.next();
           this_curr.remove();
           this_curr = temp;
         }
-        catch (InvalidNodeException f) {
-          break;
-        }
+      }
+      catch (InvalidNodeException e) {
+        break;
       }
       
     }
-
-
-    public void remove(Object i) {
-      this.set.remove(i);
+    while (this_curr.isValidNode()) {
+      try {
+        ListNode temp = this_curr.next();
+        this_curr.remove();
+        this_curr = temp;
+      }
+      catch (InvalidNodeException f) {
+        break;
+      }
     }
+    
+  }
+
+
+  public void remove(Object i) {
+    this.set.remove(i);
+  }
 
   // public void intersect(Set s) {
   //   ListNode this_curr = this.set.front();
@@ -184,19 +184,19 @@ public class Set {
   //   try {
   //     while (this_curr.isValidNode()) {
   //         if (((Comparable) s_curr.item()).compareTo(this_curr.item()) == 0) {
-            
+  
   //           s_curr = s_curr.next();
   //           s_curr.item();
   //           past = false;
   //           this_curr = this_curr.next();
-            
+  
   //         }
   //         if (((Comparable) s_curr.item()).compareTo(this_curr.item()) < 0) {
-              
+  
   //           s_curr = s_curr.next();
   //           s_curr.item();
   //           past = false;
-          
+  
   //         }
   //         if (((Comparable) s_curr.item()).compareTo(this_curr.item()) > 0) {
   //           s_curr.item();
@@ -276,22 +276,22 @@ public class Set {
     System.out.println(test2);
     test2.intersect(test3);
     System.out.println(test2);
-System.out.println("hello");
+    System.out.println("hello");
 
 
 
-System.out.println("test5 is the set: " +test5);
-System.out.println("test3 is the set: " +test3);
+    System.out.println("test5 is the set: " +test5);
+    System.out.println("test3 is the set: " +test3);
     test5.intersect(test3);
- 
+    
     System.out.println("test5 intersect test3 is: "+test5);    
 
 
     Set test6 = new Set();
     test6.intersect(test2);
     System.out.println(test6);
- test6.union(test2);
- System.out.println(test6);
+    test6.union(test2);
+    System.out.println(test6);
 
 
 

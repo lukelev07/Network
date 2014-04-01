@@ -72,6 +72,10 @@ public class Chip implements Comparable {
 				if (temp != null && temp.getColor() == this.getColor() && !(this.getEdges().contains(temp))) {
 					this.addEdge(temp);
 					temp.updateEdges();
+					if (findChipInDirection(-x,-y) != null) {
+						temp.edges.remove(findChipInDirection(-x,-y));
+						findChipInDirection(-x,-y).edges.remove(temp);
+					}
 				}
 			}
 		}
@@ -125,7 +129,12 @@ public class Chip implements Comparable {
 		this.edges.insert(chip);
 	}
 
-
+	public boolean isInGoal() {
+		if (this.getColor() == 0) {
+			return this.getX() == this.board.size - 1;
+		}
+		return this.getY() == this.board.size - 1;
+	}
 
 	/**
 	* method that implements Comparable
