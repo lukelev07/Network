@@ -116,17 +116,17 @@ public class MachinePlayer extends Player {
      } else {
          myBest.score = beta; 
      }
-
+     myBest.move = valMoves[0];
      for (int i = 0; i < valMoves.length; i++) {
         Move move = valMoves[i];
         board.execMove(move, side); //make exec move work for step
         reply = abPrune(oppColor(side), alpha, beta, ++depth);
         board.undoMove(move, side);
-        if ((side == color) && (reply.getScore() >= myBest.getScore())) {
+        if ((side == color) && (reply.getScore() > myBest.getScore())) {
             myBest.move = move;
             myBest.score = reply.getScore();
             alpha = reply.getScore();
-        } else if ((color == oppColor(color)) && (reply.getScore() <= myBest.getScore())) {
+        } else if ((color == oppColor(color)) && (reply.getScore() < myBest.getScore())) {
             myBest.move = move; 
             myBest.score = reply.getScore(); 
             beta = reply.getScore();
