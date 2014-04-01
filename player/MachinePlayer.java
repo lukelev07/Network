@@ -101,7 +101,7 @@ public class MachinePlayer extends Player {
       return myBest;
      }
 
-     if (board.hasWin()) { //current grid full "or" case 
+     if (board.hasNetwork(color) || board.hasNetwork(1 - color)) { //current grid full "or" case 
          myBest.score = board.evaluate(color, depth);
          return myBest;
      }
