@@ -1,6 +1,6 @@
 
 package player;
-	import java.util.Arrays;
+import java.util.Arrays;
 public class Board {
 	/** 
 	 *  declare fields here
@@ -67,6 +67,7 @@ public class Board {
 	 **/
 	protected boolean isValidMove(int color, int x, int y) {
 		try {
+			System.out.println(this.chips);
 			if (this.getChip(x,y) != null) {
 				return false;
 			}
@@ -80,7 +81,7 @@ public class Board {
 			if (this.numNeighbors(color,x,y) == 0) {
 				return true;
 			}
-			System.out.println("LOOK HERE");
+			// System.out.println("LOOK HERE");
 			System.out.flush();
 			Chip[] neighbors = this.getNeighbors(x,y);
 			for (int i = 0; i < neighbors.length; i++) {
@@ -140,14 +141,18 @@ public class Board {
 	**/
 	public boolean placeChip(int color, int x, int y){
 		try {	
+			System.out.println(x+", "+y);			
 			if (this.getChip(x,y) == null && isValidMove(color, x, y)) {
 				board[x][y] = newChip(color, x, y);
 				chips.insert(this.getChip(x,y));
 				this.getChip(x,y).updateEdges();
+				System.out.println("Step 3");
 				return true;
 			}
+			System.out.println("Step 3-false");
 			return false;
 		} catch (ArrayIndexOutOfBoundsException e1) {
+			System.out.println("errored");
 			return false;
 		}
 	}
@@ -248,8 +253,10 @@ public class Board {
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				try {
-					neighbors[index] = this.getChip(x+i, y+j);
-					System.out.println(neighbors[index]);
+					if (i != 0 || j != 0) {	
+						neighbors[index] = this.getChip(x+i, y+j);
+						// System.out.println(neighbors[index]);
+					}
 				}
 				catch (ArrayIndexOutOfBoundsException e2) {
 					neighbors[index] = null;
@@ -277,7 +284,8 @@ public class Board {
 	**/
 	public void execMove(Move m, int color) {
 		if (m.moveKind == 1) {
-			this.placeChip(color, m.x1, m.x2);
+			System.out.println("Step 2");
+			this.placeChip(color, m.x1, m.y1);
 		}
 	}
 
@@ -402,6 +410,19 @@ public class Board {
 		return temp;
 	}
 
+
+	public static String printString(Object[] obj) {
+		String temp = "[";
+		for (int i = 0; i < obj.length; i ++) {
+			if (obj[i] != null) 
+			{
+						temp += obj[i].toString();}
+			temp += ", ";
+		}
+		return temp+"]";
+	}
+
+
 	public static void main(String[] args) {
 		
 
@@ -454,10 +475,22 @@ public class Board {
 		System.out.println(""+test1.getNeighbors(3,2));
 
 		Chip[] hello = {test1.newChip(Chip.BLACK, 4,5)};
-		System.out.println(Arrays.toString(hello));
+		System.out.println(printString(hello));
 
 		int[] hellll = {1,2,3,4};
 		System.out.println(hellll);
+
+		System.out.println("////////////////////////////////////////////////\n");
+
+		Board test2 = new Board();
+		int y = 1;
+		while (test2.placeChip(Chip.BLACK, y, 0)) {
+			y += 1;
+			System.out.println(y);
+		}
+		System.out.println(test2);
+		System.out.println(printString(test2.getNeighbors(1,1)));
+
 
 	}
 }

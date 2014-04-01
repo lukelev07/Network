@@ -41,6 +41,7 @@ public class MachinePlayer extends Player {
   // player.  This method allows your opponents to inform you of their moves.
   public boolean opponentMove(Move m) {
     if (board.isValidMove(1-color, m)) {
+      System.out.println("Step 1");
       board.execMove(m, 1-color);
       return true;
     }

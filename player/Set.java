@@ -55,6 +55,7 @@ public class Set {
         }
         if (c.compareTo(curr.item()) < 0) {
           curr.insertBefore(c);
+          System.out.println("inserted");
           return;
         }
         curr = curr.next();
