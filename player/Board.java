@@ -2,6 +2,7 @@
 package player;
 import java.util.Arrays;
 import list.*;
+// import java.Math;
 public class Board {
 	/** 
 	 *  declare fields here
@@ -458,6 +459,54 @@ public class Board {
 
   }
 
+
+  public boolean isSameDirection(Chip chip1, Chip chip2, Chip chip3, Chip chip4) {
+  	int x1, x2, y1, y2;
+  	x1 = chip1.getX()-chip2.getX();
+  	x2 = chip3.getX()-chip4.getX();
+  	y1 = chip1.getY()-chip2.getY();
+  	y2 = chip3.getY()-chip4.getY();
+  	int counter1 = 0;
+  	int counter2 = 0;
+  	if (x1 == 0 || y1 == 0) {
+  		if (x1 == 0) {
+  			counter1 = Math.abs(y1);
+  		}
+  		else if (y1 == 0) {
+  			counter1 = Math.abs(x1);
+  		}
+  	}
+  	if (x2 == 0 || y2 == 0) {
+  		if (x2 == 0) {
+  			counter2 = Math.abs(y2);
+  		}
+  		else if (y2 == 0) {
+  			counter2 = Math.abs(x2);
+  		}
+  	}
+  	// while (Math.abs(x1) > 1 || Math.)
+  	int min1 = Math.min(Math.abs(x1), Math.abs(y1));
+  	int min2 = Math.min(Math.abs(x2), Math.abs(y2));
+  	if (min1 != 0) {
+  		counter1 = min1;
+  	}
+  	if (min2 != 0) {
+  		counter2 = min2;
+  	}
+  	System.out.println(chip1 + ", "+ chip2);
+  	System.out.println(counter1 + ", "+counter2);
+  	x1 = x1/counter1;
+  	y1 = y1/counter1;
+  	x2 = x2/counter2;
+  	y2 = y2/counter2;
+
+
+
+  	return x1 == x2 && y1 == y2;
+  	// return x1/y1 == x2/y2;
+  }
+
+
   public boolean hasNetworkHelper(Chip[] sofar) {
   	// System.out.println(printString(sofar));
   	try {  	int size = 0;
@@ -484,11 +533,13 @@ public class Board {
   					}
   				}
   				if (!temp && !((Chip) (curr.item())).isInStart()) {	
-  					sofar[size+1] = (Chip) (curr.item());
-  					if (hasNetworkHelper(sofar)) {
-  						return true;
-  					}
-  					sofar[size+1] = null;
+
+  					if (!(size > 0) || !this.isSameDirection(sofar[size-1], sofar[size], sofar[size], (Chip) curr.item())){
+  					  					sofar[size+1] = (Chip) (curr.item());
+  					  					if (hasNetworkHelper(sofar)) {
+  					  						return true;
+  					  					}
+  					  					sofar[size+1] = null;}
   				}
   				curr = curr.next();
   			}
