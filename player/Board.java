@@ -557,7 +557,37 @@ public class Board {
   	// 		return Integer.MIN_VALUE + depth; 
   	// 	}
 
-  	// 	score += 	
+  	// 	int[] pairs = sumConnections();
+  	// 	int score = 0;
+  	// 	//sums connections of machineplayer, and subtracts other players.
+  	// 	score += pairs[0] - pairs[1];
+
+  	// 	//score += 
+  	// 	return score; 
+  	// }
+
+  	// public int[] sumConnections() {
+  	// 	int[] connections = new int[2];
+  	// 	int machineEdges = 0;
+  	// 	int otherEdges = 0;
+  	// 	ListNode curr = chips.front();
+
+  	// 	try {
+	  // 		while (curr.isValidNode()) {
+	  // 			if (((Chip)curr.item()).getColor() == getThisColor()) {
+		 //  			Set edges = ((Chip)curr.item()).getEdges();
+		 //  			machineEdges += edges.cardinality();
+		 //  		} else if (((Chip)curr.item()).getColor() == 1 - getThisColor()) {
+		 //  			Set edges = ((Chip)curr.item()).getEdges();
+		 //  			otherEdges += edges.cardinality();
+		 //  		}
+		 //  		curr = curr.next();
+	  // 		}
+	  // 	} catch (InvalidNodeException e5) {
+	  // 		//end of set, catch exception 
+	  // 	}
+	  // 	connections[0] = machineEdges;
+	  // 	connections[1] = otherEdges;
   	// }
 
   	

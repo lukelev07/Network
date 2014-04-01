@@ -68,6 +68,11 @@ public class MachinePlayer extends Player {
     return false;
   }
 
+  //returns the color of the machine player 
+  public int getThisColor() {
+    return color;
+  }
+
  public BestMove abPrune(int side, int alpha, int beta, int depth) {
      BestMove myBest = new BestMove();
      BestMove reply;
@@ -115,7 +120,7 @@ public class MachinePlayer extends Player {
      for (int i = 0; i < valMoves.length; i++) {
         Move move = valMoves[i];
         board.execMove(move, side); //make exec move work for step
-        reply = abPrune(oppColor(side), alpha, beta, depth + 1);
+        reply = abPrune(oppColor(side), alpha, beta, ++depth);
         board.undoMove(move, side);
         if ((side == color) && (reply.getScore() >= myBest.getScore())) {
             myBest.move = move;
