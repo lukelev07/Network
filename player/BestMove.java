@@ -11,5 +11,8 @@ public class BestMove {
     }
 
     // no new fields to declare. Inherits from Move.
+    public String toString() {
+        return move.toString();
+    }
 
 }

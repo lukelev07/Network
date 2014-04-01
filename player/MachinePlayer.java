@@ -33,11 +33,12 @@ public class MachinePlayer extends Player {
   // Returns a new move by "this" player.  Internally records the move (updates
   // the internal game board) as a move by "this" player.
   public Move chooseMove() {
-    Move temp = RandomMove.randomForTesting(board, color);
-    board.execMove(temp, color);
-    System.out.println(board);
-    System.out.println(temp);
-    return temp;
+    // Move temp = RandomMove.randomForTesting(board, color);
+    // board.execMove(temp, color);
+    // System.out.println(board);
+    // System.out.println(temp);
+    // return temp;
+    return abPrune(color, Integer.MAX_VALUE, Integer.MIN_VALUE, searchDepth).move;
   } 
 
   // If the Move m is legal, records the move as a move by the opponent
@@ -135,6 +136,7 @@ public class MachinePlayer extends Player {
             return myBest;
         }
       }
+      
       return myBest;
   }
 
