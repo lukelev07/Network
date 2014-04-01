@@ -3,5 +3,5 @@ javac player/*.java
 echo
 echo -------------------------------------------------
 echo
-java player/test
+#java player/test
 #java Network machine random

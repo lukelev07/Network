@@ -69,7 +69,7 @@ public class MachinePlayer extends Player {
   }
 
  public BestMove abPrune(int side, int alpha, int beta, int depth) {
-     BestMove myBest = new BestMove();
+     BestMove myBest;
      BestMove reply;
      Move[] valMoves = board.validMoves(side);
 
@@ -77,20 +77,20 @@ public class MachinePlayer extends Player {
      //automatically place in first goal first     
      if (board.getChips().cardinality() == 0) {
         if (color == BLACK) {
-          myBest.move = new Move(3, 0);
+          myBest = new BestMove(3, 0);
           return myBest;
         } else if (color == WHITE) {
-          myBest.move = new Move(0, 3);
+          myBest = new BestMove(0, 3);
           return myBest;
         }
      }
      //automatically place in last goal second 
      if (board.getChips().cardinality() < 2) {
         if (color == BLACK) {
-          myBest.move = new Move(3, 7);
+          myBest = new BestMove(3, 7);
           return myBest;
         } else if (color == WHITE) {
-          myBest.move = new Move(7, 3);
+          myBest = new BestMove(7, 3);
           return myBest;
         } 
      }
@@ -101,7 +101,7 @@ public class MachinePlayer extends Player {
       return myBest;
      }
 
-     if (board.hasWin()) { //current grid full "or" case 
+     if (board.hasNetwork(color) || board.hasNetwork(1-color)) { //current grid full "or" case 
          myBest.score = board.evaluate(color, depth);
          return myBest;
      }
@@ -115,7 +115,7 @@ public class MachinePlayer extends Player {
      for (int i = 0; i < valMoves.length; i++) {
         Move move = valMoves[i];
         board.execMove(move, side); //make exec move work for step
-        reply = abPrune(oppColor(side), alpha, beta, depth + 1);
+        reply = abPrune(oppColor(side), alpha, beta, ++depth);
         board.undoMove(move, side);
         if ((side == color) && (reply.getScore() >= myBest.getScore())) {
             myBest.move = move;
