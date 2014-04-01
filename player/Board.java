@@ -594,7 +594,6 @@ public class Board {
   			return connections;
   		}
 
-<<<<<<< HEAD
   	// 	int[] pairs = sumConnections();
   	// 	int score = 0;
   	// 	//sums connections of machineplayer, and subtracts other players.
@@ -627,8 +626,7 @@ public class Board {
 	  // 	connections[0] = machineEdges;
 	  // 	connections[1] = otherEdges;
   	// }
-=======
->>>>>>> FETCH_HEAD
+
 
 	/**
 	* returns a String representation of the board
