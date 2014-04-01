@@ -39,6 +39,13 @@ public class Board {
 	}
 
 	/**
+	* returns the set of chips on the board. 
+	**/
+	public Set getChips() {
+		return chips;
+	}
+
+	/**
 	 * private method that constructs and returns a new Chip
 	 * @param color is either one or zero, depending on white or black
 	 * @param x is the x coordinate of the chip being created
@@ -145,8 +152,27 @@ public class Board {
 	 * @return a Move array containing valid moves
 	 **/
 	protected Move[] validMoves(int color) {
-		Move[] moves = new Move[60];
+		Move[] moves = new Move[350];
 		int index = 0;
+
+		if (moveType() == STEP) {
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < size; j++) {
+					if (this.getChip(i, j) != null && this.getChip(i, j).getColor() == color) {
+						for (int k = 0;k < size; k++) {
+							for (int l = 0; l < size; l++) {
+								Move m = new Move(k, l, i, j);
+								if (isValidMove(color, m)) {
+									moves[index] = m;
+									index++;
+								}
+							}
+						}
+					}
+				}
+			}
+		return moves;	
+		}
 
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -446,6 +472,10 @@ public class Board {
   			return false;
   		}
   	}
+
+  	// public int evaluate(int color) {
+  		
+  	// }
 
 
 

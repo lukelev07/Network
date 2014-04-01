@@ -80,6 +80,7 @@ public class Chip implements Comparable {
 			}
 		}
 	}
+	
 	/**
 	* finds the closest chip in a given direction
 	* returns null if there is none
