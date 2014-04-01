@@ -420,8 +420,8 @@ public class Board {
 		return true;
 	}
 
-	//to stop compiler errors 
-	public int evaluate(int color, int side) {return 0;}
+	// //to stop compiler errors 
+	// public int evaluate(int color, int side) {return 0;}
 
 
 
@@ -538,28 +538,63 @@ public class Board {
   				if (!temp && !((Chip) (curr.item())).isInStart()) {	
 
   					if (!(size > 0) || !this.isSameDirection(sofar[size-1], sofar[size], sofar[size], (Chip) curr.item())){
-  					  					sofar[size+1] = (Chip) (curr.item());
-  					  					if (hasNetworkHelper(sofar)) {
-  					  						return true;
-  					  					}
-  					  					sofar[size+1] = null;}
+  						sofar[size+1] = (Chip) (curr.item());
+  						if (hasNetworkHelper(sofar)) {
+  							return true;
+  						}
+  						sofar[size+1] = null;}
+  					}
+  					curr = curr.next();
   				}
-  				curr = curr.next();
+  			}
+  			return false;}
+  			catch (InvalidNodeException e) {
+  				return false;
   			}
   		}
-  		return false;}
-  		catch (InvalidNodeException e) {
-  			return false;
+
+  		public int evaluate(int color, int depth) {
+  			if (hasNetwork(color)) {
+  				return Integer.MAX_VALUE - depth;
+  			} else if (hasNetwork(1 - color)) {
+  				return Integer.MIN_VALUE + depth; 
+  			}
+
+  			int[] pairs = sumConnections(color);
+  			int score = 0;
+  		//sums connections of machineplayer, and subtracts other players.
+  			score += pairs[0] - pairs[1];
+
+  		//score += 
+  			return score; 
   		}
-  	}
 
-  	// public int evaluate(int color, int depth) {
-  	// 	if (hasNetwork(color)) {
-  	// 		return Integer.MAX_VALUE - depth;
-  	// 	} else if (hasNetwork(1 - color)) {
-  	// 		return Integer.MIN_VALUE + depth; 
-  	// 	}
+  		public int[] sumConnections(int color) {
+  			int[] connections = new int[2];
+  			int machineEdges = 0;
+  			int otherEdges = 0;
+  			ListNode curr = chips.set.front();
 
+  			try {
+  				while (curr.isValidNode()) {
+  					if (((Chip)curr.item()).getColor() == color) {
+  						Set edges = ((Chip)curr.item()).getEdges();
+  						machineEdges += edges.cardinality();
+  					} else if (((Chip)curr.item()).getColor() == 1 - color) {
+  						Set edges = ((Chip)curr.item()).getEdges();
+  						otherEdges += edges.cardinality();
+  					}
+  					curr = curr.next();
+  				}
+  			} catch (InvalidNodeException e5) {
+	  		//end of set, catch exception 
+  			}
+  			connections[0] = machineEdges;
+  			connections[1] = otherEdges;
+  			return connections;
+  		}
+
+<<<<<<< HEAD
   	// 	int[] pairs = sumConnections();
   	// 	int score = 0;
   	// 	//sums connections of machineplayer, and subtracts other players.
@@ -592,8 +627,9 @@ public class Board {
 	  // 	connections[0] = machineEdges;
 	  // 	connections[1] = otherEdges;
   	// }
+=======
+>>>>>>> FETCH_HEAD
 
-  	
 	/**
 	* returns a String representation of the board
 	**/

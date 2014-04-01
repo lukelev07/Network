@@ -33,11 +33,12 @@ public class MachinePlayer extends Player {
   // Returns a new move by "this" player.  Internally records the move (updates
   // the internal game board) as a move by "this" player.
   public Move chooseMove() {
-    Move temp = RandomMove.randomForTesting(board, color);
-    board.execMove(temp, color);
-    System.out.println(board);
-    System.out.println(temp);
-    return temp;
+    // Move temp = RandomMove.randomForTesting(board, color);
+    // board.execMove(temp, color);
+    // System.out.println(board);
+    // System.out.println(temp);
+    // return temp;
+    return abPrune(color, Integer.MAX_VALUE, Integer.MIN_VALUE, searchDepth).move;
   } 
 
   // If the Move m is legal, records the move as a move by the opponent
@@ -66,6 +67,11 @@ public class MachinePlayer extends Player {
       return true;
     }
     return false;
+  }
+
+  //returns the color of the machine player 
+  public int getThisColor() {
+    return color;
   }
 
  public BestMove abPrune(int side, int alpha, int beta, int depth) {
@@ -101,7 +107,11 @@ public class MachinePlayer extends Player {
       return myBest;
      }
 
+<<<<<<< HEAD
      if (board.hasNetwork(color) || board.hasNetwork(1-color)) { //current grid full "or" case 
+=======
+     if (board.hasNetwork(color) || board.hasNetwork(1 - color)) { //current grid full "or" case 
+>>>>>>> FETCH_HEAD
          myBest.score = board.evaluate(color, depth);
          return myBest;
      }
@@ -111,17 +121,17 @@ public class MachinePlayer extends Player {
      } else {
          myBest.score = beta; 
      }
-
+     myBest.move = valMoves[0];
      for (int i = 0; i < valMoves.length; i++) {
         Move move = valMoves[i];
         board.execMove(move, side); //make exec move work for step
         reply = abPrune(oppColor(side), alpha, beta, ++depth);
         board.undoMove(move, side);
-        if ((side == color) && (reply.getScore() >= myBest.getScore())) {
+        if ((side == color) && (reply.getScore() > myBest.getScore())) {
             myBest.move = move;
             myBest.score = reply.getScore();
             alpha = reply.getScore();
-        } else if ((color == oppColor(color)) && (reply.getScore() <= myBest.getScore())) {
+        } else if ((color == oppColor(color)) && (reply.getScore() < myBest.getScore())) {
             myBest.move = move; 
             myBest.score = reply.getScore(); 
             beta = reply.getScore();
@@ -130,6 +140,7 @@ public class MachinePlayer extends Player {
             return myBest;
         }
       }
+      
       return myBest;
   }
 

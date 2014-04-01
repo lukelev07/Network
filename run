@@ -3,5 +3,10 @@ javac player/*.java
 echo
 echo -------------------------------------------------
 echo
+<<<<<<< HEAD
 #java player/test
 #java Network machine random
+=======
+java player/test
+java Network machine random
+>>>>>>> FETCH_HEAD
