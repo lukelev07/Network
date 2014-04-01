@@ -171,7 +171,7 @@ public class Board {
 					}
 				}
 			}
-		return moves;	
+			return moves;	
 		}
 
 		for (int i = 0; i < size; i++) {
@@ -202,6 +202,21 @@ public class Board {
 				chips.insert(this.getChip(x,y));
 
 				this.getChip(x,y).updateEdges();
+				for (int k = -1; k <2; k++) {
+					for (int m = 0; m < 2; m++) {
+						if (k != -1 || m != 0) {
+							Chip temp1 = this.getChip(x,y).findAnyChipInDirection(m,k);
+							Chip temp2 = this.getChip(x,y).findAnyChipInDirection(-m,-k);
+							if (temp1 != null && temp1.getColor() != color) {
+								if (temp2 != null && temp2.getColor() != color) {
+									temp1.edges.remove(temp2);
+									temp2.edges.remove(temp1);
+								}
+							}
+						}
+					}
+				}
+
 				return true;
 			}
 			return false;
@@ -324,7 +339,7 @@ public class Board {
 	* returns either an ADD move or a STEP move, based upon the number of pieces on the board 
 	**/
 	public int moveType() {
-		if (chips.cardinality() < 10) {
+		if (chips.cardinality() < 20) {
 			return ADD;
 		} 
 		return STEP;
@@ -416,13 +431,12 @@ public class Board {
   **/
   public boolean hasNetwork(int color) {
   	if (color == 1) {
-  		System.out.println("YOU SUCK");
-  		System.out.println(this.getChip(0,3));
+
   		for (int i = 1; i < this.size-1; i ++) {
   			Chip start = this.getChip(0,i);
   			Chip[] temp = new Chip[10];
   			temp[0] = start;
-  			  		System.out.println(start != null);
+  			System.out.println(start != null);
   			if (start != null && hasNetworkHelper(temp)) {
   				return true;
   			}
@@ -445,6 +459,7 @@ public class Board {
   }
 
   public boolean hasNetworkHelper(Chip[] sofar) {
+  	// System.out.println(printString(sofar));
   	try {  	int size = 0;
   		while (size < sofar.length && sofar[size] != null) {
   			size ++;
@@ -457,14 +472,25 @@ public class Board {
   			return false;
   		}
   		else {
+  			// System.out.println("reached else clause");
   			List connections = sofar[size].edges.set;
   			ListNode curr = connections.front();
   			while (curr != null) {
-  				sofar[size+1] = (Chip) (curr.item());
-  				if (hasNetworkHelper(sofar)) {
-  					return true;
+  				// System.out.println(curr);
+  				boolean temp = false;
+  				for (int i = 0; i < sofar.length; i ++) {
+  					if (sofar[i] == (Chip) curr.item()) {
+  						temp = true;
+  					}
   				}
-  				sofar[size+1] = null;
+  				if (!temp && !((Chip) (curr.item())).isInStart()) {	
+  					sofar[size+1] = (Chip) (curr.item());
+  					if (hasNetworkHelper(sofar)) {
+  						return true;
+  					}
+  					sofar[size+1] = null;
+  				}
+  				curr = curr.next();
   			}
   		}
   		return false;}

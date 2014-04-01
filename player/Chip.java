@@ -107,6 +107,29 @@ public class Chip implements Comparable {
 
 	}
 
+
+	public Chip findAnyChipInDirection(int x, int y) {
+		int x_curr = this.getX();
+		int y_curr = this.getY();
+		while (true) {
+			try {
+				x_curr += x;
+				y_curr += y;
+				Chip temp = this.getBoard().getChip(x_curr,y_curr);
+				if (temp != null) {
+					
+						return temp;
+					
+				}
+			}
+			catch (ArrayIndexOutOfBoundsException e1) {
+				return null;
+			}
+		}
+	}
+
+
+
 	/**
 	* returns board
 	**/
@@ -131,10 +154,17 @@ public class Chip implements Comparable {
 	}
 
 	public boolean isInGoal() {
-		if (this.getColor() == 0) {
+		if (this.getColor() == 1) {
 			return this.getX() == this.board.size - 1;
 		}
 		return this.getY() == this.board.size - 1;
+	}
+
+	public boolean isInStart() {
+		if (this.getColor() == 1) {
+			return this.getX() == 0;
+		}
+		return this.getY() == 0;
 	}
 
 	/**
