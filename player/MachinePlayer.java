@@ -72,10 +72,6 @@ public class MachinePlayer extends Player {
     return false;
   }
 
-  //returns the color of the machine player 
-  public int getThisColor() {
-    return color;
-  }
 
  public BestMove abPrune(int side, int alpha, int beta, int depth) {
      BestMove myBest = new BestMove();
@@ -104,6 +100,16 @@ public class MachinePlayer extends Player {
           return myBest;
         } 
      }
+
+     // if (board.getChips().cardinality() < 6) {
+     //    if (color == BLACK) {
+     //      myBest.move = new Move(3, 3);
+     //      return myBest;
+     //    } else if (color == WHITE) {
+     //      myBest.move = new Move(3, 3);
+     //      return myBest;
+     //    } 
+     // }
                 // System.out.println("ailuweghliuawhegiuahslguihsiu");
 
 
@@ -125,17 +131,21 @@ public class MachinePlayer extends Player {
          myBest.score = beta; 
      }
      while (myBest.move == null) {
-     myBest.move = valMoves[((int) (Math.random()*valMoves.length))];}
+     myBest.move = valMoves[((int) (Math.random()*valMoves.length))];
+     }
      for (int i = 0; i < valMoves.length; i++) {
         Move move = valMoves[i];
+        if (move == null) {
+          continue;
+        }
         board.execMove(move, side); //make exec move work for step
-        reply = abPrune(oppColor(side), alpha, beta, ++depth);
+        reply = abPrune(oppColor(side), alpha, beta, depth + 1);
         board.undoMove(move, side);
         if ((side == color) && (reply.getScore() > myBest.getScore())) {
             myBest.move = move;
             myBest.score = reply.getScore();
             alpha = reply.getScore();
-        } else if ((color == oppColor(color)) && (reply.getScore() < myBest.getScore())) {
+        } else if ((side == oppColor(color)) && (reply.getScore() < myBest.getScore())) {
             myBest.move = move; 
             myBest.score = reply.getScore(); 
             beta = reply.getScore();

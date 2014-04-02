@@ -153,7 +153,7 @@ public class Board {
 	 * @return a Move array containing valid moves
 	 **/
 	protected Move[] validMoves(int color) {
-		Move[] moves = new Move[390];
+		Move[] moves = new Move[400];
 		int index = 0;
 
 		if (moveType() == STEP) {
@@ -567,9 +567,8 @@ public class Board {
   			}
 
   			int[] pairs = sumConnections(color);
-  			int score = 0;
   		//sums connections of machineplayer, and subtracts other players.
-  			score += pairs[0] - pairs[1];
+  			int score = pairs[0] - pairs[1];
 
   		//score += 
   			return score; 
@@ -599,6 +598,7 @@ public class Board {
   			connections[1] = otherEdges;
   			return connections;
   		}
+  	
 
   	// 	int[] pairs = sumConnections();
   	// 	int score = 0;
