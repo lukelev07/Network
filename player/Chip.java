@@ -7,10 +7,8 @@ public class Chip implements Comparable {
 	protected int color;
 	protected int x;
 	protected int y;
-	// when checking networks, cant use same chip twice. This maintains rule
-	public boolean isChecked;
 	protected Set edges;
-	public Board board;
+	protected Board board;
 
 
 	/**
@@ -19,11 +17,10 @@ public class Chip implements Comparable {
 	* @param x represents x coord of the chip being placed
 	* @param y represents y coord of the chip being placed
 	**/
-	public Chip(int color, int x, int y, Board board) {
+	protected Chip(int color, int x, int y, Board board) {
 		this.color = color;
 		this.x = x;
 		this.y = y;
-		isChecked = false;
 		this.edges = new Set();
 		this.board = board;
 	}
@@ -32,14 +29,14 @@ public class Chip implements Comparable {
 	/**
 	* getX() returns the x coordinate of the Chip
 	**/
-	public int getX() {
+	protected int getX() {
 		return x;
 	}
 
 	/**
 	* getY() returns the y coordinate of the Chip
 	**/
-	public int getY() {
+	protected int getY() {
 		return y;
 	}
 
@@ -47,23 +44,16 @@ public class Chip implements Comparable {
 	/**
 	* getColor() returns the color of the Chip
 	**/
-	public int getColor() {
+	protected int getColor() {
 		return color;
 	}
 
-	/**
-	* setCheck() changes the "seen" value of a chip.
-	* @param new represents the new "seen" status a chip will have
-	**/
-	public void setCheck(boolean newvalue) {
-		isChecked = newvalue;
-	}
 
 	/**
 	* called on a chip, and updates the edges.
 	* it then recursively calls update on any edges added to this chip
 	**/
-	public void updateEdges() {
+	protected void updateEdges() {
 		Chip temp;
 		for (int x = -1; x<2; x++) {
 			for (int y = -1; y<2; y++) {
@@ -83,8 +73,10 @@ public class Chip implements Comparable {
 	/**
 	* finds the closest chip in a given direction
 	* returns null if there is none
+	* @param x is the x direction we should look
+	* @param y is the y direction we should look
 	**/
-	public Chip findChipInDirection(int x, int y) {
+	protected Chip findChipInDirection(int x, int y) {
 		int x_curr = this.getX();
 		int y_curr = this.getY();
 		while (true) {
@@ -109,8 +101,10 @@ public class Chip implements Comparable {
 	/**
 	* finds the closest chip in ANY direction
 	* returns null if there is none
+	* @param x is the x direction we should look
+	* @param y is the y direction we should look
 	**/
-	public Chip findAnyChipInDirection(int x, int y) {
+	protected Chip findAnyChipInDirection(int x, int y) {
 		int x_curr = this.getX();
 		int y_curr = this.getY();
 		while (true) {
@@ -135,29 +129,30 @@ public class Chip implements Comparable {
 	/**
 	* returns board
 	**/
-	public Board getBoard() {
+	protected Board getBoard() {
 		return board;
 	}
 
 
 	/**
-	* returns edges
+	* returns edges a chip has, that is, the pieces it is connected to
 	**/
-	public Set getEdges() {
+	protected Set getEdges() {
 		return edges;
 	}
 
 
 	/**
 	* adds one edge to a chips set
+	* @param chip is the chip that is being added to this's set of edges
 	**/
-	public void addEdge(Chip chip) {
+	protected void addEdge(Chip chip) {
 		this.edges.insert(chip);
 	}
 	/**
 	*returns boolean signifying a chip in goal area 
 	**/
-	public boolean isInGoal() {
+	protected boolean isInGoal() {
 		if (this.getColor() == 1) {
 			return this.getX() == this.board.size - 1;
 		}
@@ -166,7 +161,7 @@ public class Chip implements Comparable {
 	/**
 	*returns boolean signifying a chip in start area 
 	**/
-	public boolean isInStart() {
+	protected boolean isInStart() {
 		if (this.getColor() == 1) {
 			return this.getX() == 0;
 		}
@@ -176,6 +171,8 @@ public class Chip implements Comparable {
 	/**
 	* method that implements Comparable
 	* returns +1, -1 or 0
+	* implemented in order to use the set data structure implemented in class
+	* @param other is the object we are comparing to
 	**/
 	public int compareTo(Object other) {
 		Chip others = (Chip) other;

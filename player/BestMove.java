@@ -6,7 +6,7 @@ public class BestMove {
     int score;
     Move move;
 
-    public int getScore() {
+    protected int getScore() {
         return score;
     }
 
