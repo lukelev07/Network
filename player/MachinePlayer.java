@@ -145,7 +145,7 @@ public class MachinePlayer extends Player {
             myBest.move = move;
             myBest.score = reply.getScore();
             alpha = reply.getScore();
-        } else if ((side == oppColor(color)) && (reply.getScore() < myBest.getScore())) {
+        } else if ((side == 1-color) && (reply.getScore() < myBest.getScore())) {
             myBest.move = move; 
             myBest.score = reply.getScore(); 
             beta = reply.getScore();
