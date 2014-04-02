@@ -20,14 +20,18 @@ instructor.
 ===============================================================================
 Does your program compile without errors?
 
+Yes
 
 Have you tested your program on the 61B lab machines?
 
+Yes
 
 Did you successfully implement game tree search?  Did you successfully
 implement alpha-beta pruning?  Are there any limitations on it?  What is the
 default number of search levels set by the one-parameter MachinePlayer
 constructor (or is it a variable-depth search)?
+
+Yes, everything was successfully limited. We have the search level default to a sdepth variable, currently set at 2.
 
 
 Describe your board evaluation function in some detail.
@@ -35,8 +39,12 @@ Describe your board evaluation function in some detail.
 
 Does your MachinePlayer use any special method of choosing the first few moves?
 
+We place 3 chips down, one in each goal, and one in the center. This helps initiate some connections.
+
 
 Is there anything else the graders should know to help them read your project?
+
+Not really, thanks for reading!
 
 
 
