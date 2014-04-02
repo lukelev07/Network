@@ -13,7 +13,7 @@ public class MachinePlayer extends Player {
   Board board = new Board();
   int color;
   int searchDepth;
-  static int sdepth = 4;
+  static int sdepth = 3;
   public static final int BLACK = 0;
   public static final int WHITE = 1;
 
@@ -38,7 +38,7 @@ public class MachinePlayer extends Player {
 
     // System.out.println(temp);
     // return temp;
-    Move temp = abPrune(color, Integer.MAX_VALUE, Integer.MIN_VALUE, 0).move;
+    Move temp = abPrune(color, Integer.MIN_VALUE, Integer.MAX_VALUE, 0).move;
     board.execMove(temp, color);
         System.out.println(board);
     return temp;
@@ -101,25 +101,21 @@ public class MachinePlayer extends Player {
         } 
      }
 
-     // if (board.getChips().cardinality() < 6) {
-     //    if (color == BLACK) {
-     //      myBest.move = new Move(3, 3);
-     //      return myBest;
-     //    } else if (color == WHITE) {
-     //      myBest.move = new Move(3, 3);
-     //      return myBest;
-     //    } 
-     // }
+     if (board.getChips().cardinality() < 6) {
+          for (int i = 3; i < 5; i++) {
+            for (int j = 3; j < 5; j++) {
+              Move temp2 = new Move(i, j);
+              if (board.isValidMove(side, i, j)) {
+                myBest.move = temp2;
+                return myBest;
+              }
+            }
+          }
+        }
                 // System.out.println("ailuweghliuawhegiuahslguihsiu");
 
 
-     // search depth reached; call evaluate
-     if (depth == searchDepth) {
-      myBest.score = board.evaluate(color, depth);
-      return myBest;
-     }
-
-     if (board.hasNetwork(color) || board.hasNetwork(1-color)) { //current grid full "or" case 
+     if (depth >= searchDepth || board.hasNetwork(color) || board.hasNetwork(1-color)) { //current grid full "or" case 
 
          myBest.score = board.evaluate(color, depth);
          return myBest;
@@ -136,7 +132,7 @@ public class MachinePlayer extends Player {
      for (int i = 0; i < valMoves.length; i++) {
         Move move = valMoves[i];
         if (move == null) {
-          continue;
+          break;
         }
         board.execMove(move, side); //make exec move work for step
         reply = abPrune(oppColor(side), alpha, beta, depth + 1);

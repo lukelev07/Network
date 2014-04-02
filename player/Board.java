@@ -153,10 +153,11 @@ public class Board {
 	 * @return a Move array containing valid moves
 	 **/
 	protected Move[] validMoves(int color) {
-		Move[] moves = new Move[400];
+		Move[] moves;
 		int index = 0;
 
 		if (moveType() == STEP) {
+		    moves = new Move[400];
 			for (int i = 0; i < size; i++) {
 				for (int j = 0; j < size; j++) {
 					if (this.getChip(i, j) != null && this.getChip(i, j).getColor() == color) {
@@ -176,6 +177,7 @@ public class Board {
 			return moves;	
 		}
 		else {
+			moves = new Move[60];
 			for (int i = 0; i < size; i++) {
 				for (int j = 0; j < size; j++) {
 					if (isValidMove(color, i, j)) {
