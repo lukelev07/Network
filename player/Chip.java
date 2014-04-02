@@ -59,7 +59,6 @@ public class Chip implements Comparable {
 		isChecked = newvalue;
 	}
 
-
 	/**
 	* called on a chip, and updates the edges.
 	* it then recursively calls update on any edges added to this chip
@@ -107,7 +106,10 @@ public class Chip implements Comparable {
 
 	}
 
-
+	/**
+	* finds the closest chip in ANY direction
+	* returns null if there is none
+	**/
 	public Chip findAnyChipInDirection(int x, int y) {
 		int x_curr = this.getX();
 		int y_curr = this.getY();
@@ -152,14 +154,18 @@ public class Chip implements Comparable {
 	public void addEdge(Chip chip) {
 		this.edges.insert(chip);
 	}
-
+	/**
+	*returns boolean signifying a chip in goal area 
+	**/
 	public boolean isInGoal() {
 		if (this.getColor() == 1) {
 			return this.getX() == this.board.size - 1;
 		}
 		return this.getY() == this.board.size - 1;
 	}
-
+	/**
+	*returns boolean signifying a chip in start area 
+	**/
 	public boolean isInStart() {
 		if (this.getColor() == 1) {
 			return this.getX() == 0;

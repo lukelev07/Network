@@ -20,31 +20,35 @@ instructor.
 ===============================================================================
 Does your program compile without errors?
 
-Yes
+-Yes.
 
 Have you tested your program on the 61B lab machines?
 
-Yes
+-Yes.
 
 Did you successfully implement game tree search?  Did you successfully
 implement alpha-beta pruning?  Are there any limitations on it?  What is the
 default number of search levels set by the one-parameter MachinePlayer
 constructor (or is it a variable-depth search)?
 
-Yes, everything was successfully limited. We have the search level default to a sdepth variable, currently set at 2.
+-Yes, everything was successfully implemented. We have the search level default to a sdepth variable, currently set at 2.
 
 
 Describe your board evaluation function in some detail.
 
+-The evaluation function simply adds up the connections in machine players color, and subtracts the connections from the other color. 
+This is done when no network exists for either color, in that case,  max integer is assigned to the win for a machine player, and a min integer 
+is assigned to the win for the other color. 
 
 Does your MachinePlayer use any special method of choosing the first few moves?
 
-We place 3 chips down, one in each goal, and one in the center. This helps initiate some connections.
+-We place 3 chips down, one in each goal, and one in the center. The center is chosen at convenience for which spot
+is open. This helps initiate some connections, and speed up the search process.
 
 
 Is there anything else the graders should know to help them read your project?
 
-Not really, thanks for reading!
+-Not really, thanks for reading!
 
 
 
@@ -71,15 +75,53 @@ sure to modify this file to reflect these changes before you submit your
 project.  Your design of classes and interfaces will be worth 10% of your
 grade.
 
-public class Board {
 
+Class Board:
+  -Implements the basic rules of the game.
+  -Represents a board using a 2D array. 
+  -Contains methods for valid moves, getting chipsat a point, placing, moving, and removing chips. 
+  -Contains the methods used for generating a list of valid moves, and checking for valid networks.
+  -Contains the evaluation method. Called by abpruning at the base case. 
+  (test methods and to strings commented out for convenience)
+
+Class Chip:
+  -Straightforward, holds data for a chip with a color, x coordinate, and y coordinate. 
+  -Getter methods for these fields. 
+  -Includes methods for finding edges of a chip. These edges are connections. 
+  -Includes methods to help find edges, including methods for finding chips in certain directions. 
+
+Class MachinePlayer:
+  -Contains implementations for the provided methods. 
+  -Contains abpruning, which is called by choosemove, and initiates the game tree search, with alpha-beta pruning included. 
+  -Contains a variable t oeasily change search depth at will. 
+
+Class BestMove:
+  -Used for storing a move and its associated score. 
+  -Useful in that we can not change Move class, so we created this class out of convenience. 
+  -Used by game tree search when returning a Best Move. 
+
+Method signatures and descriptions below:
+
+##########
+##Board:##
+##########
 /**
  * this one parameter constructor initializes a board taking in one parameter for size
  * also initiates a set that holds all the chips present on the board
  * @param size is the dimensions of the Board. Assume that the Board is square
  **/
-public Board(int size) 
+public Board(int size) {}
 
+/**
+* zero parameter constructor that initializes an 8x8 2d array to hold chips
+* The board is initially empty
+**/
+public Board() {}
+
+/**
+* returns the set of chips on the board. 
+**/
+public Set getChips() {}
 
 /**
  * private method that constructs and returns a new Chip
@@ -87,234 +129,237 @@ public Board(int size)
  * @param x is the x coordinate of the chip being created
  * @param y is the y coordinate of the chip being created
  **/
-private Chip newChip(int color, int x, int y)
-
-
-/**
-   * isValidMove() returns a boolean that indicates the legality of placing a chip of int color in x,y
-   * will raise an ArrayIndexOutOfBoundsException if the coordinates are out of the bounds of the array
-   * @param color is either one or zero, depending on white or black
-   * @param x is the x coordinate of the chip being created
-   * @param y is the y coordinate of the chip being created
-   **/
-  private boolean isValidMove(int color, int x, int y)
-
-
+private Chip newChip(int color, int x, int y) {}
 
 /**
-  * getChip() returns the chip at an index x,y if a chip exists. 
-  * if the chip does not exist it returns null
-  * will raise an ArrayIndexOutOfBoundsException if the coordinates are out of the bounds of the array
-   * @param x is the x coordinate of the chip being retrieved
-   * @param y is the y coordinate of the chip being retrieved
-  **/
-  public Chip getChip(int x, int y)
-
-
-/**
-  * placeChip() constructs a new chip of int color and then assigns it to the board at that coord
-  * it will return true or false depending on if a Chip was placed
-  * will throw an ArrayIndexOutOfBoundsException if the coords are out of the bounds
-   * @param color is either one or zero, depending on white or black chips are being placed 
-   * @param x is the x coordinate of the chip being created
-   * @param y is the y coordinate of the chip being created
-  **/
-  public boolean placeChip(int color, int x, int y)
-
-
-  /**
-  * removeChip() removes the Chip located at x,y
-  * will return true if a chip is removed, else returns false
-  * will throw an ArrayIndexOutOfBoundsException if the coords are out of the bounds
-   * @param x is the x coordinate of the chip being removed
-   * @param y is the y coordinate of the chip being removed
-  **/
-  public boolean removeChip(int x, int y) 
-
-
-
-  /**
-  * moveChip() removes the Chip located at x1,y1 and places the chip at x2,y2
-  * will return true if a chip is moved, else returns false
-  * will throw an ArrayIndexOutOfBoundsException if the coords are out of the bounds
-   * @param x1 is the x coordinate of the chip being removed
-   * @param y1 is the y coordinate of the chip being removed
-   * @param x2 is the x coordinate of the chip being placed
-   * @param y2 is the y coordinate of the chip being placed
-  **/
-  public boolean moveChip(int x1, int y1, int x2, int y2) 
-
-
-  /**
-   *  numNeighbors() determines if the given position has a safe amount of neighbors
-   *  to place a new chip in. The README states no chip may have more than one adjacent 
-   *  similarly colored chip. y
-   *
-   *  @param color is the color to be checked with
-   *  @param x is the x coordinate of the spot we are checking
-   *  @param y is the y coordinate of the spot we are checking
-   *  @return the number of same-colored chips around the given coordinate.  
-   **/
-  public int numNeighbors(int color, int x, int y)
-
-
-  /**
-  * getNeighbors() returns a Chip array of length nine containg nulls and neighbors
-   *  @param x is the x coordinate of the spot we are checking
-   *  @param y is the y coordinate of the spot we are checking
-  **/
-  public Chip[] getNeighbors(int x, int y)
-
-
-  /**
-  * returns either an ADD move or a STEP move, based upon the number of pieces on the board 
-  **/
-  public int moveType()
-
-
-  /**
-  * execMove() takes in a move and executes it as a step or add move
-  * @param m is the move being executed
-  * @param color is an integer representing whose turn it is
-  **/
-  public void execMove(Move m, int color)
-
-
-  /**
-  * undoMove() takes in a move and undoes it.
-  * used for testing possible moves 
-  * @param m is the move being undone
-  * @param color is an integer representing whose turn it is
-  **/
-  public void undoMove(Move m, int color)
-
-
-  /**
-  * returns whether or not a win is possible given an array of connections from goal to goal.  
-  **/
-  public boolean hasWin()
-
-
-
-  /**
-  * hasNetwork() is a method called by a board that returns true if a network exists
-  * @param color is an integer that states which player is going
-  * @param startval
-  **/
-  public boolean hasNetwork(int color, int x, int y, int startval)
-}
-
-
-
-
-
-
-
-public class Chip implements Comparable {
-
-  /**
-  * Chip constructor makes a Chip object
-  * @param color represents white or black
-  * @param x represents x coord of the chip being placed
-  * @param y represents y coord of the chip being placed
-  **/
-  public Chip(int color, int x, int y, Board board)
-
-
-  /**
-  * getX() returns the x coordinate of the Chip
-  **/
-  public int getX()
-
-
-  /**
-  * getY() returns the y coordinate of the Chip
-  **/
-  public int getY()
-
-
-  public int getColor()
-
-
-  public void setCheck() {
-
-
-  /**
-  * called on a chip, and updates the edges.
-  * it then recursively calls update on any edges added to this chip
-  **/
-  public void updateEdges()
+* getChip() returns the chip at an index x,y if a chip exists. 
+* if the chip does not exist it returns null
+* will raise an ArrayIndexOutOfBoundsException if the coordinates are out of the bounds of the array
+ * @param x is the x coordinate of the chip being retrieved
+ * @param y is the y coordinate of the chip being retrieved
+**/
+public Chip getChip(int x, int y) throws ArrayIndexOutOfBoundsException {}
 
 /**
-  * finds the closest chip in a given direction
-  * returns null if there is none
-  **/
-  public Chip findChipInDirection(int x, int y)
-
-  /**
-  * returns board
-  **/
-  public Board getBoard()
-
-  /**
-  * returns edges
-  **/
-  public Set getEdges()
-
-  /**
-  * adds one edge to a chips set
-  **/
-  public void addEdge(Chip chip)
+ * isValidMove() returns a boolean that indicates the legality of placing a chip of int color in x,y
+ * will raise an ArrayIndexOutOfBoundsException if the coordinates are out of the bounds of the array
+ * @param color is either one or zero, depending on white or black
+ * @param x is the x coordinate of the chip being created
+ * @param y is the y coordinate of the chip being created
+ **/
+protected boolean isValidMove(int color, int x, int y) {}
 
 /**
-  * method that implements Comparable
-  * returns +1, -1 or 0
-  **/
-  public int compareTo(Object other)
+ * This is valid move is called by the other isvalid move and takes care of step moves. 
+ * See description for is valid move for add moves for more details. 
+ **/
+protected boolean isValidMove(int color, int x1, int y1, int x2, int y2) {}
+
+/**
+ * isValidMove() returns a boolean that indicates the legality of placing a chip of int color in x,y
+ * will raise an ArrayIndexOutOfBoundsException if the coordinates are out of the bounds of the array
+ * @param color is either one or zero, depending on white or black
+ * @param move is the move of the chip being created
+ **/
+protected boolean isValidMove(int color, Move m) {}
+
+/**
+ * validMoves() returns an array of all the possible moves a given color could make
+ * will iterate through the board and check for a valid move before appending that move 
+ * @param color is the color of moves to be checked 
+ * @return a Move array containing valid moves
+ **/
+protected Move[] validMoves(int color) {}
+
+/**
+* placeChip() constructs a new chip of int color and then assigns it to the board at that coord
+* it will return true or false depending on if a Chip was placed
+* will throw an ArrayIndexOutOfBoundsException if the coords are out of the bounds
+ * @param color is either one or zero, depending on white or black chips are being placed 
+ * @param x is the x coordinate of the chip being created
+ * @param y is the y coordinate of the chip being created
+**/
+public boolean placeChip(int color, int x, int y){}
+
+/**
+* removeChip() removes the Chip located at x,y
+* will return true if a chip is removed, else returns false
+* will throw an ArrayIndexOutOfBoundsException if the coords are out of the bounds
+ * @param x is the x coordinate of the chip being removed
+ * @param y is the y coordinate of the chip being removed
+**/
+public boolean removeChip(int x, int y) {}
+
+/**
+* moveChip() removes the Chip located at x1,y1 and places the chip at x2,y2
+* will return true if a chip is moved, else returns false
+* will throw an ArrayIndexOutOfBoundsException if the coords are out of the bounds
+ * @param x1 is the x coordinate of the chip being removed
+ * @param y1 is the y coordinate of the chip being removed
+ * @param x2 is the x coordinate of the chip being placed
+ * @param y2 is the y coordinate of the chip being placed
+**/
+public boolean moveChip(int x1, int y1, int x2, int y2) {}
+
+/**
+*  numNeighbors() determines if the given position has a safe amount of neighbors
+*  to place a new chip in. The README states no chip may have more than one adjacent 
+*  similarly colored chip. y
+*  @param color is the color to be checked with
+*  @param x is the x coordinate of the spot we are checking
+*  @param y is the y coordinate of the spot we are checking
+*  @return the number of same-colored chips around the given coordinate.  
+**/
+public int numNeighbors(int color, int x, int y) {}
+
+/**
+* getNeighbors() returns a Chip array of length nine containg nulls and neighbors
+ *  @param x is the x coordinate of the spot we are checking
+ *  @param y is the y coordinate of the spot we are checking
+**/
+public Chip[] getNeighbors(int x, int y) {}
+
+/**
+* returns either an ADD move or a STEP move, based upon the number of pieces on the board 
+**/
+public int moveType() {}
+
+/**
+* execMove() takes in a move and executes it as a step or add move
+* @param m is the move being executed
+* @param color is an integer representing whose turn it is
+**/
+public void execMove(Move m, int color) {}
+
+/**
+* undoMove() takes in a move and undoes it.
+* used for testing possible moves 
+* @param m is the move being undone
+* @param color is an integer representing whose turn it is
+**/
+public void undoMove(Move m, int color) {}
+
+/**
+* hasNetwork() is a method called by a board that returns true if a network exists
+* @param color is an integer that states which player is going
+* @param startval
+**/
+public boolean hasNetwork(int color) {}
+
+/**
+* isSameDirection() returns whether or not a given chip is in the same direction as 
+* its predacessors. This method is a helper for hasNetwork() and allows checking 
+* of rule number 4 in the README. 
+* @param chip1 is the chip to be compared
+* @param chip2 is the chip to be compared
+* @param chip3 is the chip to be compared
+* @param chip4 is the chip to be compared
+**/
+public boolean isSameDirection(Chip chip1, Chip chip2, Chip chip3, Chip chip4) {}
+
+/**
+* hasNetworkHelper() is a method called by hasNetwork which keeps track of chips in a proposed network.
+* @param sofar is an array of chips in the network at a given point 
+* @return a boolean telling if such a network exists 
+**/
+public boolean hasNetworkHelper(Chip[] sofar) {}
+
+/**
+* evaluate() assigns a score to a given board state. Called by abpruning and is described in further detail
+* in the GRADER file. 
+* @param color is the color to be evaluated 
+* @param depth is the depth passed in from the ab pruning when evaluate() was called  
+**/
+public int evaluate(int color, int depth) {}
+
+#########
+##Chip:##
+#########
+
+/**
+* Chip constructor makes a Chip object
+* @param color represents white or black
+* @param x represents x coord of the chip being placed
+* @param y represents y coord of the chip being placed
+**/
+public Chip(int color, int x, int y, Board board) {}
+
+/**
+* getX() returns the x coordinate of the Chip
+**/
+public int getX() {}
+
+/**
+* getY() returns the y coordinate of the Chip
+**/
+public int getY() {}
+
+/**
+* getColor() returns the color of the Chip
+**/
+public int getColor() {}
+
+/**
+* called on a chip, and updates the edges.
+* it then recursively calls update on any edges added to this chip
+**/
+public void updateEdges() {}
+
+/**
+* finds the closest chip in a given direction
+* returns null if there is none
+**/
+public Chip findChipInDirection(int x, int y) {}
+
+/**
+* finds the closest chip in ANY direction
+* returns null if there is none
+**/
+public Chip findAnyChipInDirection(int x, int y) {}
+
+/**
+* returns board
+**/
+public Board getBoard() {}
+
+/**
+* returns edges
+**/
+public Set getEdges() {}
+
+/**
+* adds one edge to a chips set
+**/
+public void addEdge(Chip chip) {}
+
+/**
+*returns boolean signifying a chip in goal area 
+**/
+public boolean isInGoal() {}
+
+/**
+*returns boolean signifying a chip in start area 
+**/
+public boolean isInStart() {}
+
+###################
+##Machine Player:##
+###################
 
 
-}
+Methods included are not listed here. Only ones we implemented are.
 
+/**
+* abPrune implements game tree search from the Lecture 17 notes from CS61B.
+* See more description in GRADER.
+* @param side is the current side being searched. 
+* @param alpha is a trait of alpha-beta pruning. See lecture notes for details 
+* @param beta is a trait of alpha-beta pruning. See lecture notes for details 
+* @param depth maintains search depth parameter. Once zero, evaluate() is called 
+**/
+public BestMove abPrune(int side, int alpha, int beta, int depth) {}
 
-
-
-public class MachinePlayer extends Player {
-
-
-
-public BestMove abPrune(int side, int alpha, int beta)
-
-}
-
-
-
-public class BestMove extends Move {
-
-    int score;
-
-    public int getScore()
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+* method that changes the color given a color 
+**/
+public int oppColor(int color) {}

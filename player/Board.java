@@ -105,6 +105,10 @@ public class Board {
 		}
 	}
 
+	/**
+	 * This is valid move is called by the other isvalid move and takes care of step moves. 
+	 * See description for is valid move for add moves for more details. 
+	 **/
 	protected boolean isValidMove(int color, int x1, int y1, int x2, int y2) {
 		if (x1 == x2 && y1 == y2) {
 			return false;
@@ -397,7 +401,15 @@ public class Board {
   	return false;
   }
 
-
+  /**
+  * isSameDirection() returns whether or not a given chip is in the same direction as 
+  * its predacessors. This method is a helper for hasNetwork() and allows checking 
+  * of rule number 4 in the README. 
+  * @param chip1 is the chip to be compared
+  * @param chip2 is the chip to be compared
+  * @param chip3 is the chip to be compared
+  * @param chip4 is the chip to be compared
+  **/
   public boolean isSameDirection(Chip chip1, Chip chip2, Chip chip3, Chip chip4) {
   	int x1, x2, y1, y2;
   	x1 = chip1.getX()-chip2.getX();
@@ -438,7 +450,11 @@ public class Board {
   	return x1 == x2 && y1 == y2;
   }
 
-
+  /**
+  * hasNetworkHelper() is a method called by hasNetwork which keeps track of chips in a proposed network.
+  * @param sofar is an array of chips in the network at a given point 
+  * @return a boolean telling if such a network exists 
+  **/
   public boolean hasNetworkHelper(Chip[] sofar) {
   	try {  	int size = 0;
   		while (size < sofar.length && sofar[size] != null) {
@@ -480,7 +496,12 @@ public class Board {
   				return false;
   			}
   		}
-
+  		/**
+  		* evaluate() assigns a score to a given board state. Called by abpruning and is described in further detail
+  		* in the GRADER file. 
+  		* @param color is the color to be evaluated 
+  		* @param depth is the depth passed in from the ab pruning when evaluate() was called  
+  		**/
   		public int evaluate(int color, int depth) {
   			if (hasNetwork(color)) {
   				return Integer.MAX_VALUE - depth +1;
@@ -495,7 +516,11 @@ public class Board {
   		//score += 
   			return score; 
   		}
-
+  		/**
+  		* sumConnections() is a helper called by eval that returns an array of ints, each corresponding to the total 
+  		* connections for the machineplayer and human, respectively. 
+  		* @param color is the machine players color  
+  		**/
   		public int[] sumConnections(int color) {
   			int[] connections = new int[2];
   			int machineEdges = 0;

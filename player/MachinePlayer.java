@@ -69,7 +69,14 @@ public class MachinePlayer extends Player {
     return false;
   }
 
-
+ /**
+ * abPrune implements game tree search from the Lecture 17 notes from CS61B.
+ * See more description in GRADER.
+ * @param side is the current side being searched. 
+ * @param alpha is a trait of alpha-beta pruning. See lecture notes for details 
+ * @param beta is a trait of alpha-beta pruning. See lecture notes for details 
+ * @param depth maintains search depth parameter. Once zero, evaluate() is called 
+ **/
  public BestMove abPrune(int side, int alpha, int beta, int depth) {
      BestMove myBest = new BestMove();
      BestMove reply;
@@ -141,7 +148,9 @@ public class MachinePlayer extends Player {
       }
       return myBest;
   }
-
+     /**
+     * method that changes the color given a color 
+     **/
      public int oppColor(int color) {
        if (color == 0) {
          return 1;
