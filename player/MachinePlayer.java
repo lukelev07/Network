@@ -13,7 +13,7 @@ public class MachinePlayer extends Player {
   Board board = new Board();
   int color;
   int searchDepth;
-  static int sdepth = 3;
+  static int sdepth = 2;
   public static final int BLACK = 0;
   public static final int WHITE = 1;
 
@@ -40,7 +40,6 @@ public class MachinePlayer extends Player {
     // return temp;
     Move temp = abPrune(color, Integer.MIN_VALUE, Integer.MAX_VALUE, 0).move;
     board.execMove(temp, color);
-        System.out.println(board);
     return temp;
   } 
 
@@ -52,8 +51,6 @@ public class MachinePlayer extends Player {
     if (board.isValidMove(1-color, m)) {
       // System.out.println("Step 1");
       board.execMove(m, 1-color);
-      System.out.println(board);
-
       return true;
     }
     return false;
@@ -77,9 +74,6 @@ public class MachinePlayer extends Player {
      BestMove myBest = new BestMove();
      BestMove reply;
      Move[] valMoves = board.validMoves(side);
-     System.out.println(Board.printString(valMoves));
-
-
      //automatically place in first goal first     
      if (board.getChips().cardinality() < 2) {
         if (color == BLACK) {
@@ -100,7 +94,6 @@ public class MachinePlayer extends Player {
           return myBest;
         } 
      }
-
      if (board.getChips().cardinality() < 6) {
           for (int i = 3; i < 5; i++) {
             for (int j = 3; j < 5; j++) {
@@ -112,11 +105,7 @@ public class MachinePlayer extends Player {
             }
           }
         }
-                // System.out.println("ailuweghliuawhegiuahslguihsiu");
-
-
      if (depth >= searchDepth || board.hasNetwork(color) || board.hasNetwork(1-color)) { //current grid full "or" case 
-
          myBest.score = board.evaluate(color, depth);
          return myBest;
      }

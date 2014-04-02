@@ -90,7 +90,7 @@ public class Board {
 				return true;
 			}
 			Chip[] neighbors = this.getNeighbors(x,y);
-			// System.out.println(printString(neighbors));
+
 			for (int i = 0; i < neighbors.length; i++) {
 				if (neighbors[i] != null && neighbors[i].getColor() == color) {
 					return this.numNeighbors(neighbors[i].getColor(), neighbors[i].getX(), neighbors[i].getY()) == 0;
@@ -167,7 +167,6 @@ public class Board {
 								if (isValidMove(color, m)) {
 									moves[index] = m;
 									index++;
-									// System.out.println("step: "+ m);
 								}
 							}
 						}
@@ -199,12 +198,10 @@ public class Board {
 	 * @param y is the y coordinate of the chip being created
 	**/
 	public boolean placeChip(int color, int x, int y){
-		try {	
-			// System.out.println(x+", "+y);			
+		try {				
 			if (this.getChip(x,y) == null && isValidMove(color, x, y)) {
 				board[x][y] = newChip(color, x, y);
 				chips.insert(this.getChip(x,y));
-
 				this.getChip(x,y).updateEdges();
 				for (int k = -1; k <2; k++) {
 					for (int m = 0; m < 2; m++) {
@@ -220,7 +217,6 @@ public class Board {
 						}
 					}
 				}
-
 				return true;
 			}
 			return false;
@@ -242,25 +238,18 @@ public class Board {
 			if (removed != null) {
 				this.chips.remove(removed);
 				board[x][y] = null;
-
 				Chip temp;
-
 				for (int x_dir = -1; x_dir<2; x_dir++) {
 					for (int y_dir = -1; y_dir<2; y_dir++) {
-
 						if (x_dir != 0 || y_dir != 0) { 
 							temp = removed.findChipInDirection(x_dir,y_dir);
-
 							if (temp != null && temp.getColor() == removed.getColor()) {
 								temp.getEdges().remove(removed);
 								temp.updateEdges();
-
 							}
 						}
 					}
-
 				}
-
 				return true;
 			}
 			return false;
@@ -327,7 +316,6 @@ public class Board {
 				try {
 					if (i != 0 || j != 0) {	
 						neighbors[index] = this.getChip(x+i, y+j);
-						// System.out.println(neighbors[index]);
 					}
 				}
 				catch (ArrayIndexOutOfBoundsException e2) {
@@ -359,15 +347,10 @@ public class Board {
 			this.placeChip(color, m.x1, m.y1);
 		}
 		if (m.moveKind == 2) {
-			// System.out.println("yo your step got here in execmove");
 			this.removeChip(m.x2,m.y2);
 			this.placeChip(color, m.x1, m.y1);
-			// System.out.println(this);
 		}
 	}
-
-
-
 	 /**
 	 * undoMove() takes in a move and undoes it.
 	 * used for testing possible moves 
@@ -385,54 +368,6 @@ public class Board {
 	 	}
 	 }
 
-/*	public BestMove chooseMove(int side, int alpha, int beta) {
-		Best myBest = new BestMove();
-		Best reply; 
-
-		if (current grid full or has a win) {
-			return a BestMove with the grids score, no move;
-		}
-		if (side == computer) {
-			myBest.score = alpha; 
-		} else {
-			myBest.score = beta; 
-		}
-		for (each legal move m) {
-			perform move m;
-			reply = chooseMove(! side , alpha, beta);
-			undo move m;
-			if side((side == computer) && (reply.score >= myBest.score)) {
-				myBest.move = m;
-				myBest.score = reply.score;
-				alpha = reply.score;
-			} else if ((side == human) && (reply.score <= myBest.score)) {
-				myBest.move = m; 
-				myBest.score = reply.score; 
-				beta = reply.score;
-			}
-			if( alpha >= beta) { return myBest; }
-		}
-		return myBest;
-	} */
-
-	/**
-	* returns whether or not a win is possible given an array of connections from goal to goal.  
-	**/
-	public boolean hasWin() {
-	//	for(int i = 0; i < connections.length() -1; i++) {
-	// 		if (connections[i].length() >= 6) {
-	// 			return true;
-	// 		}
-	// 	}
-	// 	return false;
-		return true;
-	}
-
-	// //to stop compiler errors 
-	// public int evaluate(int color, int side) {return 0;}
-
-
-
   /**
   * hasNetwork() is a method called by a board that returns true if a network exists
   * @param color is an integer that states which player is going
@@ -440,12 +375,10 @@ public class Board {
   **/
   public boolean hasNetwork(int color) {
   	if (color == 1) {
-
   		for (int i = 1; i < this.size-1; i ++) {
   			Chip start = this.getChip(0,i);
   			Chip[] temp = new Chip[10];
   			temp[0] = start;
-  			System.out.println(start != null);
   			if (start != null && hasNetworkHelper(temp)) {
   				return true;
   			}
@@ -461,10 +394,7 @@ public class Board {
   			}
   		}
   	}
-
-
   	return false;
-
   }
 
 
@@ -492,7 +422,6 @@ public class Board {
   			counter2 = Math.abs(x2);
   		}
   	}
-  	// while (Math.abs(x1) > 1 || Math.)
   	int min1 = Math.min(Math.abs(x1), Math.abs(y1));
   	int min2 = Math.min(Math.abs(x2), Math.abs(y2));
   	if (min1 != 0) {
@@ -501,22 +430,16 @@ public class Board {
   	if (min2 != 0) {
   		counter2 = min2;
   	}
-  	System.out.println(chip1 + ", "+ chip2);
-  	System.out.println(counter1 + ", "+counter2);
   	x1 = x1/counter1;
   	y1 = y1/counter1;
   	x2 = x2/counter2;
   	y2 = y2/counter2;
 
-
-
   	return x1 == x2 && y1 == y2;
-  	// return x1/y1 == x2/y2;
   }
 
 
   public boolean hasNetworkHelper(Chip[] sofar) {
-  	// System.out.println(printString(sofar));
   	try {  	int size = 0;
   		while (size < sofar.length && sofar[size] != null) {
   			size ++;
@@ -532,11 +455,9 @@ public class Board {
   			return false;
   		}
   		else {
-  			// System.out.println("reached else clause");
   			List connections = sofar[size].edges.set;
   			ListNode curr = connections.front();
   			while (curr != null) {
-  				// System.out.println(curr);
   				boolean temp = false;
   				for (int i = 0; i < sofar.length; i ++) {
   					if (sofar[i] == (Chip) curr.item()) {
@@ -544,7 +465,6 @@ public class Board {
   					}
   				}
   				if (!temp && !((Chip) (curr.item())).isInStart()) {	
-
   					if (!(size > 0) || !this.isSameDirection(sofar[size-1], sofar[size], sofar[size], (Chip) curr.item())){
   						sofar[size+1] = (Chip) (curr.item());
   						if (hasNetworkHelper(sofar)) {
@@ -601,41 +521,6 @@ public class Board {
   			return connections;
   		}
   	
-
-  	// 	int[] pairs = sumConnections();
-  	// 	int score = 0;
-  	// 	//sums connections of machineplayer, and subtracts other players.
-  	// 	score += pairs[0] - pairs[1];
-
-  	// 	//score += 
-  	// 	return score; 
-  	// }
-
-  	// public int[] sumConnections() {
-  	// 	int[] connections = new int[2];
-  	// 	int machineEdges = 0;
-  	// 	int otherEdges = 0;
-  	// 	ListNode curr = chips.front();
-
-  	// 	try {
-	  // 		while (curr.isValidNode()) {
-	  // 			if (((Chip)curr.item()).getColor() == getThisColor()) {
-		 //  			Set edges = ((Chip)curr.item()).getEdges();
-		 //  			machineEdges += edges.cardinality();
-		 //  		} else if (((Chip)curr.item()).getColor() == 1 - getThisColor()) {
-		 //  			Set edges = ((Chip)curr.item()).getEdges();
-		 //  			otherEdges += edges.cardinality();
-		 //  		}
-		 //  		curr = curr.next();
-	  // 		}
-	  // 	} catch (InvalidNodeException e5) {
-	  // 		//end of set, catch exception 
-	  // 	}
-	  // 	connections[0] = machineEdges;
-	  // 	connections[1] = otherEdges;
-  	// }
-
-
 	/**
 	* returns a String representation of the board
 	**/
@@ -726,74 +611,74 @@ public class Board {
 		}
 
 
-		public static void main(String[] args) {
+		// public static void main(String[] args) {
 
 
 
 
-		//initiates a board with several pieces placed and then prints it
-			Board test1 = new Board();
-			int x = 1;
-			while (test1.placeChip(Chip.BLACK, x, 0)) {
-				x += 2;
-			}
+		// //initiates a board with several pieces placed and then prints it
+		// 	Board test1 = new Board();
+		// 	int x = 1;
+		// 	while (test1.placeChip(Chip.BLACK, x, 0)) {
+		// 		x += 2;
+		// 	}
 
-			System.out.println("TEST1: \n"+test1);
-			if (test1.toString().equals(data.BOARD_TEST1)) {
-				System.out.println("TEST1 PASSED HOORAY");
-			}
-			else {
-				System.out.println("TEST1 did not pass :(");
-			}
-
-
-		//TEST2
-			boolean bool = test1.placeChip(Chip.WHITE, 1, 0);
-			System.out.println("TEST2: bool should be false: ");
-			if (bool == false) {
-				System.out.println("TEST2 PASSED HOORAY");
-			}
-			else {
-				System.out.println("TEST2 did not pass :(");
-			}
-
-			System.out.println(""+test1.chips);
-			System.out.println("" + test1.getChip(3,0).getEdges());
-			test1.placeChip(Chip.BLACK, 3,2);
-			System.out.println("" + test1.getChip(3,2).getEdges());
-
-			test1.placeChip(Chip.BLACK, 3,6);
-			System.out.println("" + test1.getChip(3,6).getEdges());
-			test1.placeChip(Chip.BLACK, 2,0);
-			System.out.println(""+test1);
+		// 	System.out.println("TEST1: \n"+test1);
+		// 	if (test1.toString().equals(data.BOARD_TEST1)) {
+		// 		System.out.println("TEST1 PASSED HOORAY");
+		// 	}
+		// 	else {
+		// 		System.out.println("TEST1 did not pass :(");
+		// 	}
 
 
+		// //TEST2
+		// 	boolean bool = test1.placeChip(Chip.WHITE, 1, 0);
+		// 	System.out.println("TEST2: bool should be false: ");
+		// 	if (bool == false) {
+		// 		System.out.println("TEST2 PASSED HOORAY");
+		// 	}
+		// 	else {
+		// 		System.out.println("TEST2 did not pass :(");
+		// 	}
 
-			test1.removeChip(3,6);
-			System.out.println(""+test1);
-			System.out.println(""+test1.chips);
-			System.out.println("" + test1.getChip(3,2).getEdges());
-			test1.placeChip(Chip.BLACK, 3,3);
-			System.out.println("helllllooooooooo");
-			System.out.println(""+test1.getNeighbors(3,2));
+		// 	System.out.println(""+test1.chips);
+		// 	System.out.println("" + test1.getChip(3,0).getEdges());
+		// 	test1.placeChip(Chip.BLACK, 3,2);
+		// 	System.out.println("" + test1.getChip(3,2).getEdges());
 
-			Chip[] hello = {test1.newChip(Chip.BLACK, 4,5)};
-			System.out.println(printString(hello));
-
-			int[] hellll = {1,2,3,4};
-			System.out.println(hellll);
-
-			System.out.println("////////////////////////////////////////////////\n");
-
-			Board test2 = new Board();
-			int y = 1;
-			while (test2.placeChip(Chip.BLACK, y, 0)) {
-				y += 1;
-				System.out.println(y);
-			}
-			System.out.println(test2);
-			System.out.println(printString(test2.getNeighbors(1,1)));
+		// 	test1.placeChip(Chip.BLACK, 3,6);
+		// 	System.out.println("" + test1.getChip(3,6).getEdges());
+		// 	test1.placeChip(Chip.BLACK, 2,0);
+		// 	System.out.println(""+test1);
 
 
-		}
+
+		// 	test1.removeChip(3,6);
+		// 	System.out.println(""+test1);
+		// 	System.out.println(""+test1.chips);
+		// 	System.out.println("" + test1.getChip(3,2).getEdges());
+		// 	test1.placeChip(Chip.BLACK, 3,3);
+		// 	System.out.println("helllllooooooooo");
+		// 	System.out.println(""+test1.getNeighbors(3,2));
+
+		// 	Chip[] hello = {test1.newChip(Chip.BLACK, 4,5)};
+		// 	System.out.println(printString(hello));
+
+		// 	int[] hellll = {1,2,3,4};
+		// 	System.out.println(hellll);
+
+		// 	System.out.println("////////////////////////////////////////////////\n");
+
+		// 	Board test2 = new Board();
+		// 	int y = 1;
+		// 	while (test2.placeChip(Chip.BLACK, y, 0)) {
+		// 		y += 1;
+		// 		System.out.println(y);
+		// 	}
+		// 	System.out.println(test2);
+		// 	System.out.println(printString(test2.getNeighbors(1,1)));
+
+
+		// }
 	}
