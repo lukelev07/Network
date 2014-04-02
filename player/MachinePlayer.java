@@ -13,7 +13,7 @@ public class MachinePlayer extends Player {
   Board board = new Board();
   int color;
   int searchDepth;
-  static int sdepth = 2;
+  static int sdepth = 4;
   public static final int BLACK = 0;
   public static final int WHITE = 1;
 
@@ -35,10 +35,13 @@ public class MachinePlayer extends Player {
   public Move chooseMove() {
     // Move temp = RandomMove.randomForTesting(board, color);
     // board.execMove(temp, color);
-    // System.out.println(board);
+
     // System.out.println(temp);
     // return temp;
-    return abPrune(color, Integer.MAX_VALUE, Integer.MIN_VALUE, searchDepth).move;
+    Move temp = abPrune(color, Integer.MAX_VALUE, Integer.MIN_VALUE, 0).move;
+    board.execMove(temp, color);
+        System.out.println(board);
+    return temp;
   } 
 
   // If the Move m is legal, records the move as a move by the opponent
@@ -78,10 +81,11 @@ public class MachinePlayer extends Player {
      BestMove myBest = new BestMove();
      BestMove reply;
      Move[] valMoves = board.validMoves(side);
+     System.out.println(Board.printString(valMoves));
 
 
      //automatically place in first goal first     
-     if (board.getChips().cardinality() == 0) {
+     if (board.getChips().cardinality() < 2) {
         if (color == BLACK) {
           myBest.move = new Move(3, 0);
           return myBest;
@@ -91,7 +95,7 @@ public class MachinePlayer extends Player {
         }
      }
      //automatically place in last goal second 
-     if (board.getChips().cardinality() < 2) {
+     if (board.getChips().cardinality() < 4) {
         if (color == BLACK) {
           myBest.move = new Move(3, 7);
           return myBest;
@@ -100,6 +104,8 @@ public class MachinePlayer extends Player {
           return myBest;
         } 
      }
+                // System.out.println("ailuweghliuawhegiuahslguihsiu");
+
 
      // search depth reached; call evaluate
      if (depth == searchDepth) {
@@ -118,7 +124,8 @@ public class MachinePlayer extends Player {
      } else {
          myBest.score = beta; 
      }
-     myBest.move = valMoves[0];
+     while (myBest.move == null) {
+     myBest.move = valMoves[((int) (Math.random()*valMoves.length))];}
      for (int i = 0; i < valMoves.length; i++) {
         Move move = valMoves[i];
         board.execMove(move, side); //make exec move work for step
@@ -137,7 +144,6 @@ public class MachinePlayer extends Player {
             return myBest;
         }
       }
-      
       return myBest;
   }
 

@@ -166,6 +166,7 @@ public class Board {
 								if (isValidMove(color, m)) {
 									moves[index] = m;
 									index++;
+									// System.out.println("step: "+ m);
 								}
 							}
 						}
@@ -174,17 +175,17 @@ public class Board {
 			}
 			return moves;	
 		}
-
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				if (isValidMove(color, i, j)) {
-					Move m = new Move(i, j);
-					moves[index] = m;
-					index++;
+		else {
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < size; j++) {
+					if (isValidMove(color, i, j)) {
+						Move m = new Move(i, j);
+						moves[index] = m;
+						index++;
+					}
 				}
 			}
-		}
-		return moves; 
+		}		return moves; 
 	}
 
 	/**
@@ -372,9 +373,14 @@ public class Board {
 	 * @param color is an integer representing whose turn it is
 	 **/
 	 public void undoMove(Move m, int color) {
-	// 	if (m.movekind == 1) {
-	// 		this.removeChip(color, m.x1, m.x2);
-	// 	}
+
+	 	if (m.moveKind == Move.ADD) {
+	 		this.removeChip(m.x1, m.y1);
+	 	}
+	 	else {
+	 		this.removeChip(m.x1, m.y1);
+	 		this.placeChip(color, m.x2, m.y2);
+	 	}
 	 }
 
 /*	public BestMove chooseMove(int side, int alpha, int beta) {
@@ -555,9 +561,9 @@ public class Board {
 
   		public int evaluate(int color, int depth) {
   			if (hasNetwork(color)) {
-  				return Integer.MAX_VALUE - depth;
+  				return Integer.MAX_VALUE - depth +1;
   			} else if (hasNetwork(1 - color)) {
-  				return Integer.MIN_VALUE + depth; 
+  				return Integer.MIN_VALUE + depth -1; 
   			}
 
   			int[] pairs = sumConnections(color);
