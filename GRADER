@@ -51,7 +51,6 @@ Is there anything else the graders should know to help them read your project?
 -Not really, thanks for reading!
 
 
-
 Describe the classes, modules, and interfaces you designed before and while you
 implemented the project.  Your description should include:
   -  A list of the classes your program uses.
@@ -74,8 +73,6 @@ You will probably need to change some of your design decisions as you go; be
 sure to modify this file to reflect these changes before you submit your
 project.  Your design of classes and interfaces will be worth 10% of your
 grade.
-
-<<<<<<< HEAD
 
 Class Board:
   -Implements the basic rules of the game.
@@ -294,39 +291,6 @@ public int getX() {}
 * getY() returns the y coordinate of the Chip
 **/
 public int getY() {}
-=======
-- A list of the classes your program uses.
-1. Board
-2. Chip
-3. MachinePlayer
-4. Move
-5. Player
-6. RandomMove
-7. BestMove
-8. Set
-9. List (Dlist and Slist)
-
-
-===============================================================
-Board
-===============================================================
-
-===============================================================
-Chip
-===============================================================
-
-===============================================================
-Move 
-===============================================================
-
-===============================================================
-AI
-===============================================================
-
-===============================================================
-List
-===============================================================
->>>>>>> c9f75a85cf389b1db330b459d5492ad26bd9a854
 
 /**
 * getColor() returns the color of the Chip
