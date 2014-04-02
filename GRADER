@@ -74,7 +74,7 @@ sure to modify this file to reflect these changes before you submit your
 project.  Your design of classes and interfaces will be worth 10% of your
 grade.
 
-Class Board:
+Class Board: implemented by Don-Wook, Luke, and Sherry
   -Implements the basic rules of the game.
   -Represents a board using a 2D array. 
   -Contains methods for valid moves, getting chipsat a point, placing, moving, and removing chips. 
@@ -82,18 +82,18 @@ Class Board:
   -Contains the evaluation method. Called by abpruning at the base case. 
   (test methods and to strings commented out for convenience)
 
-Class Chip:
+Class Chip: Implemented by Luke, and Don-Wook
   -Straightforward, holds data for a chip with a color, x coordinate, and y coordinate. 
   -Getter methods for these fields. 
   -Includes methods for finding edges of a chip. These edges are connections. 
   -Includes methods to help find edges, including methods for finding chips in certain directions. 
 
-Class MachinePlayer:
+Class MachinePlayer: Implemented by Luke and Don-Wook
   -Contains implementations for the provided methods. 
   -Contains abpruning, which is called by choosemove, and initiates the game tree search, with alpha-beta pruning included. 
   -Contains a variable t oeasily change search depth at will. 
 
-Class BestMove:
+Class BestMove: Implemented by Luke 
   -Used for storing a move and its associated score. 
   -Useful in that we can not change Move class, so we created this class out of convenience. 
   -Used by game tree search when returning a Best Move. 
